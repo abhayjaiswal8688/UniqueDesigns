@@ -1,0 +1,71 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;700&family=Merriweather:wght@700;900&display=swap');
+@import "tailwindcss";
+
+@layer base {
+  /* This sets the default body font for the whole site */
+  body {
+    font-family: 'Inter', sans-serif;
+  }
+  
+  /* This sets the heading font for all headings (h1, h2, h3, etc.) */
+  h1, h2, h3, h4, h5, h6 {
+    font-family: 'Merriweather', serif;
+  }
+}
+
+/* --- REPLACE your old CSS with this --- */
+
+@layer utilities {
+  .animate-stream-text {
+    /* 1. Define the gradient with repeating bands of color */
+    background-image: repeating-linear-gradient(
+      45deg,
+      #f97316,       /* Orange-500 */
+      #fb923c 15%,    /* Orange-400 */
+      #fcd34d 30%,    /* Yellow-300 */
+      #f97316 45%     /* Orange-500 (to loop) */
+    );
+    
+    /* 2. Make the gradient "stream" by making it 4x wider */
+    background-size: 400% 100%;
+    
+    /* 3. Clip the gradient to the text */
+    background-clip: text;
+    -webkit-background-clip: text; /* Safari */
+    color: transparent;
+    
+    /* 4. Apply the new "stream" animation */
+    /* --- UPDATED Animation Speed --- */
+    animation: stream-flow 20s linear infinite;
+  }
+
+  .animate-stream-text-green {
+    /* 1. Define the gradient with repeating bands of color */
+    /* --- UPDATED Green Gradient (Green + Lime Mix) --- */
+    background-image: repeating-linear-gradient(
+      45deg,
+      #22c55e,       /* Green-500 (Base) */
+      #84cc16 15%,    /* Lime-500 (Mid-tone 'mix') */
+      #a3e635 30%,    /* Lime-400 (Highlight) */
+      #22c55e 45%     /* Green-500 (to loop) */
+    );
+    
+    /* 2. Make the gradient "stream" by making it 4x wider */
+    background-size: 400% 100%;
+    
+    /* 3. Clip the gradient to the text */
+    background-clip: text;
+    -webkit-background-clip: text; /* Safari */
+    color: transparent;
+    
+    /* 4. Apply the new "stream" animation */
+    /* --- UPDATED Animation Speed --- */
+    animation: stream-flow 20s linear infinite;
+  }
+}
+
+/* This new animation just moves the background in one direction, forever */
+@keyframes stream-flow {
+  0% { background-position: 0% 50%; }
+  100% { background-position: 400% 50%; } /* Move it 400% to the right to complete one cycle */
+}
