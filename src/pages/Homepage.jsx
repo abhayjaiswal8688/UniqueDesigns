@@ -64,44 +64,40 @@ const AnimatedLetters = ({ text, className }) => {
 };
 
 const slickStyles = `
-  /* ---------- Core Layout Fixes ---------- */
   .featured-slider .slick-list {
-    margin: 0 -10px;
+    margin: 0 -8px;
     overflow: visible;
   }
 
   .featured-slider .slick-slide > div {
-    padding: 0 10px;
+    padding: 0 8px;
   }
 
-  /* ---------- Navigation Arrows ---------- */
   .featured-slider .slick-prev,
   .featured-slider .slick-next {
-    width: 45px;
-    height: 45px;
+    width: 40px;
+    height: 40px;
     z-index: 10;
-    border: 1.5px solid rgba(255,255,255,0.5);
-    background: rgba(0,0,0,0.4);
+    background: rgba(0, 0, 0, 0.4);
+    border: 1.5px solid rgba(255, 255, 255, 0.5);
     border-radius: 50%;
     transition: all 0.3s ease;
     display: flex !important;
     align-items: center;
     justify-content: center;
-    backdrop-filter: blur(4px);
   }
 
   .featured-slider .slick-prev:before,
   .featured-slider .slick-next:before {
-    font-size: 26px;
-    color: #ffffff;
+    font-size: 24px;
+    color: #fff;
     opacity: 1;
   }
 
   .featured-slider .slick-prev:hover,
   .featured-slider .slick-next:hover {
-    background: rgba(255,179,71,0.15);
+    background: rgba(255, 179, 71, 0.2);
     border-color: #ffb347;
-    transform: scale(1.05);
   }
 
   .featured-slider .slick-prev:hover:before,
@@ -109,58 +105,22 @@ const slickStyles = `
     color: #ffb347;
   }
 
-  .featured-slider .slick-prev {
-    left: -55px;
-  }
-
-  .featured-slider .slick-next {
-    right: -55px;
-  }
-
-  /* ---------- Dots ---------- */
   .featured-slider .slick-dots {
-    bottom: -32px;
+    bottom: -28px;
   }
 
   .featured-slider .slick-dots li button:before {
     color: #ffffff;
-    opacity: 0.4;
+    opacity: 0.5;
     font-size: 10px;
-    transition: all 0.3s ease;
   }
 
   .featured-slider .slick-dots li.slick-active button:before {
     color: #ffb347;
     opacity: 1;
-    transform: scale(1.3);
   }
 
-  /* ---------- Slide Card Fix ---------- */
-  .featured-slider .slick-slide {
-    transition: transform 0.3s ease;
-  }
-
-  .featured-slider .slick-slide:hover {
-    transform: translateY(-6px);
-  }
-
-  /* ---------- Mobile Tweaks ---------- */
   @media (max-width: 768px) {
-    .featured-slider .slick-prev,
-    .featured-slider .slick-next {
-      width: 36px;
-      height: 36px;
-      left: -40px;
-      right: -40px;
-    }
-
-    .featured-slider .slick-prev:before,
-    .featured-slider .slick-next:before {
-      font-size: 22px;
-    }
-  }
-
-  @media (max-width: 640px) {
     .featured-slider .slick-prev,
     .featured-slider .slick-next {
       display: none !important;
@@ -175,6 +135,7 @@ const slickStyles = `
     }
   }
 `;
+
 
 
 const slideImages = [
@@ -293,27 +254,23 @@ export function Homepage() {
     responsive: [
       {
         breakpoint: 1280,
-        settings: {
-          slidesToShow: 3,
-          slidesToScroll: 1,
-        },
+        settings: { slidesToShow: 3 },
       },
       {
         breakpoint: 1024,
-        settings: {
-          slidesToShow: 2,
-          slidesToScroll: 1,
-        },
+        settings: { slidesToShow: 2 },
       },
       {
-        breakpoint: 640,
-        settings: {
-          slidesToShow: 1,
-          slidesToScroll: 1,
-        },
+        breakpoint: 768,
+        settings: { slidesToShow: 1, centerMode: true, centerPadding: "40px" },
+      },
+      {
+        breakpoint: 480,
+        settings: { slidesToShow: 1, centerMode: true, centerPadding: "24px" },
       },
     ],
-  }
+  };
+  
 
   return (
     <div className="relative min-h-screen">
@@ -507,7 +464,7 @@ export function Homepage() {
           </div>
 
           <motion.div
-  className="relative featured-slider mx-auto max-w-7xl px-4 sm:px-6 md:px-10"
+  className="relative featured-slider mx-auto max-w-7xl px-2 sm:px-4"
   initial={{ opacity: 0, y: 20 }}
   whileInView={{ opacity: 1, y: 0 }}
   transition={{ duration: 0.6 }}
@@ -515,18 +472,20 @@ export function Homepage() {
 >
   <Slider {...sliderSettings}>
     {featuredProducts.map((product, index) => (
-      <div key={index} className="px-3">
-        <div className="bg-black/50 backdrop-blur-sm rounded-xl shadow-xl border border-white/30 overflow-hidden hover:-translate-y-2 transition-transform duration-300">
-          <img
-            src={product.img}
-            alt={product.alt}
-            className="w-full aspect-[4/3] object-cover"
-          />
+      <div key={index}>
+        <div className="bg-black/60 backdrop-blur-md rounded-2xl shadow-lg border border-white/20 overflow-hidden hover:-translate-y-1 transition-transform duration-300">
+          <div className="aspect-[3/4] w-full overflow-hidden">
+            <img
+              src={product.img}
+              alt={product.alt}
+              className="w-full h-full object-cover"
+            />
+          </div>
           <div className="p-4 text-center">
-            <h3 className="text-lg md:text-xl font-semibold text-white mb-2">
+            <h3 className="text-lg md:text-xl font-semibold text-white mb-1">
               {product.title}
             </h3>
-            <p className="text-gray-300 text-sm md:text-base">
+            <p className="text-gray-300 text-sm leading-snug">
               {product.desc}
             </p>
           </div>
@@ -535,6 +494,7 @@ export function Homepage() {
     ))}
   </Slider>
 </motion.div>
+
 
         </div>
       </div>
