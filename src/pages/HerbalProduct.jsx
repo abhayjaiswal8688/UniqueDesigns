@@ -346,7 +346,7 @@ export function HerbalProduct() { // Changed to named export as in original file
                     className="mb-6"
                   >
                     <h1 className="text-4xl sm:text-5xl md:text-6xl font-bold mb-6 leading-tight font-serif tracking-tight animate-stream-text-green">
-                      <AnimatedLetters text="Pure, Potent and Organic" />
+                      <AnimatedLetters text="Potent and Organic" />
                     </h1>
                   </motion.div>
       
