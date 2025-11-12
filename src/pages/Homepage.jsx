@@ -64,80 +64,118 @@ const AnimatedLetters = ({ text, className }) => {
 };
 
 const slickStyles = `
+  /* ---------- Core Layout Fixes ---------- */
   .featured-slider .slick-list {
-    margin: 0 -12px;
+    margin: 0 -10px;
+    overflow: visible;
   }
 
   .featured-slider .slick-slide > div {
-    padding: 0 12px;
+    padding: 0 10px;
   }
 
+  /* ---------- Navigation Arrows ---------- */
   .featured-slider .slick-prev,
   .featured-slider .slick-next {
-    width: 50px;
-    height: 50px;
+    width: 45px;
+    height: 45px;
     z-index: 10;
-    
-    background-color: transparent;
-    border: 2px solid #ffffff;
-    
+    border: 1.5px solid rgba(255,255,255,0.5);
+    background: rgba(0,0,0,0.4);
     border-radius: 50%;
-    
-    transition: all 0.3s ease-in-out;
-
-    display: flex !important; 
+    transition: all 0.3s ease;
+    display: flex !important;
     align-items: center;
     justify-content: center;
+    backdrop-filter: blur(4px);
   }
-  
-  .featured-slider .slick-prev {
-    left: 0;
-  }
-  
-  .featured-slider .slick-next {
-    right: 0;
+
+  .featured-slider .slick-prev:before,
+  .featured-slider .slick-next:before {
+    font-size: 26px;
+    color: #ffffff;
+    opacity: 1;
   }
 
   .featured-slider .slick-prev:hover,
   .featured-slider .slick-next:hover {
-    background-color: transparent;
-    border-color: #f97316;
-  }
-  
-  .featured-slider .slick-prev:before,
-  .featured-slider .slick-next:before {
-    font-size: 40px;
-    
-    color: #ffffff;
-
-    opacity: 1;
-    transition: color 0.3s ease-in-out;
-    line-height: normal; 
-    
-    position: relative;
-    top: 2px;
+    background: rgba(255,179,71,0.15);
+    border-color: #ffb347;
+    transform: scale(1.05);
   }
 
   .featured-slider .slick-prev:hover:before,
   .featured-slider .slick-next:hover:before {
-    color: #f97316;
+    color: #ffb347;
   }
-    
+
+  .featured-slider .slick-prev {
+    left: -55px;
+  }
+
+  .featured-slider .slick-next {
+    right: -55px;
+  }
+
+  /* ---------- Dots ---------- */
   .featured-slider .slick-dots {
-    bottom: -40px;
+    bottom: -32px;
   }
 
   .featured-slider .slick-dots li button:before {
     color: #ffffff;
     opacity: 0.4;
     font-size: 10px;
+    transition: all 0.3s ease;
   }
 
   .featured-slider .slick-dots li.slick-active button:before {
-    color: #f97316;
+    color: #ffb347;
     opacity: 1;
+    transform: scale(1.3);
   }
-`
+
+  /* ---------- Slide Card Fix ---------- */
+  .featured-slider .slick-slide {
+    transition: transform 0.3s ease;
+  }
+
+  .featured-slider .slick-slide:hover {
+    transform: translateY(-6px);
+  }
+
+  /* ---------- Mobile Tweaks ---------- */
+  @media (max-width: 768px) {
+    .featured-slider .slick-prev,
+    .featured-slider .slick-next {
+      width: 36px;
+      height: 36px;
+      left: -40px;
+      right: -40px;
+    }
+
+    .featured-slider .slick-prev:before,
+    .featured-slider .slick-next:before {
+      font-size: 22px;
+    }
+  }
+
+  @media (max-width: 640px) {
+    .featured-slider .slick-prev,
+    .featured-slider .slick-next {
+      display: none !important;
+    }
+
+    .featured-slider .slick-list {
+      margin: 0;
+    }
+
+    .featured-slider .slick-slide > div {
+      padding: 0 6px;
+    }
+  }
+`;
+
 
 const slideImages = [
   {
@@ -468,36 +506,36 @@ export function Homepage() {
             </h2>
           </div>
 
-      <motion.div
-className="relative px-4 sm:px-8 md:px-12 featured-slider"
-initial={{ opacity: 0, y: 20 }}
-whileInView={{ opacity: 1, y: 0 }}
-transition={{ duration: 0.5 }}
-viewport={{ once: true }}
+          <motion.div
+  className="relative featured-slider mx-auto max-w-7xl px-4 sm:px-6 md:px-10"
+  initial={{ opacity: 0, y: 20 }}
+  whileInView={{ opacity: 1, y: 0 }}
+  transition={{ duration: 0.6 }}
+  viewport={{ once: true }}
 >
+  <Slider {...sliderSettings}>
+    {featuredProducts.map((product, index) => (
+      <div key={index} className="px-3">
+        <div className="bg-black/50 backdrop-blur-sm rounded-xl shadow-xl border border-white/30 overflow-hidden hover:-translate-y-2 transition-transform duration-300">
+          <img
+            src={product.img}
+            alt={product.alt}
+            className="w-full aspect-[4/3] object-cover"
+          />
+          <div className="p-4 text-center">
+            <h3 className="text-lg md:text-xl font-semibold text-white mb-2">
+              {product.title}
+            </h3>
+            <p className="text-gray-300 text-sm md:text-base">
+              {product.desc}
+            </p>
+          </div>
+        </div>
+      </div>
+    ))}
+  </Slider>
+</motion.div>
 
-            <Slider {...sliderSettings}>
-              {featuredProducts.map((product, index) => (
-                <div key={index}>
-                  <div className="bg-black/50 h-75 backdrop-blur-sm rounded-lg shadow-xl overflow-hidden transform transition-transform duration-300 hover:-translate-y-2 border border-white/40">
-                    <img
-                      src={product.img}
-                      alt={product.alt}
-                      className="w-full h-48 object-cover"
-                    />
-                    <div className="p-3">
-                      <h3 className="text-xl font-bold text-white mb-2">
-                        {product.title}
-                      </h3>
-                      <p className="text-gray-300 text-sm">
-                        {product.desc}
-                      </p>
-                    </div>
-                  </div>
-                </div>
-              ))}
-            </Slider>
-          </motion.div>
         </div>
       </div>
 
