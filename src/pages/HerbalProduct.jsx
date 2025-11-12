@@ -342,13 +342,13 @@ export function HerbalProduct() { // Changed to named export as in original file
           animate="visible"
         >
           <motion.div
-            variants={taglineHeaderVariants}
-            className="mb-6"
-          >
-            <h1 className="text-5xl md:text-6xl font-bold mb-6 leading-tight font-serif tracking-tight animate-stream-text-green">
-              <AnimatedLetters text="Pure, potent, and organic" />
-            </h1>
-          </motion.div>
+                    variants={taglineHeaderVariants}
+                    className="mb-6"
+                  >
+                    <h1 className="text-4xl sm:text-5xl md:text-6xl font-bold mb-6 leading-tight font-serif tracking-tight animate-stream-text-green">
+                      <AnimatedLetters text="Pure, Potent and Organic" />
+                    </h1>
+                  </motion.div>
       
           <motion.hr
             className="w-1/4 mx-auto mb-10 border-t-2 border-green-500/80"
