@@ -131,28 +131,19 @@ const slickStyles = `
   max-width: 320px;
 }
 
-/* Prevent text squeeze */
-@media (min-width: 768px) {
+/* --- Fix mobile layout (single centered row) --- */
+@media (max-width: 768px) {
+  .featured-slider .slick-slide {
+    display: flex !important;
+    justify-content: center !important;
+  }
+
   .featured-slider .slick-slide > div {
-    width: 260px !important;
+    width: 90% !important;
+    max-width: 340px;
   }
 }
 
-
-  @media (max-width: 768px) {
-    .featured-slider .slick-prev,
-    .featured-slider .slick-next {
-      display: none !important;
-    }
-
-    .featured-slider .slick-list {
-      margin: 0;
-    }
-
-    .featured-slider .slick-slide > div {
-      padding: 0 6px;
-    }
-  }
 `;
 
 
@@ -273,7 +264,6 @@ export function Homepage() {
     autoplay: true,
     autoplaySpeed: 3000,
     pauseOnHover: true,
-    variableWidth: true,
     responsive: [
       { breakpoint: 1280, settings: { slidesToShow: 3 } },
       { breakpoint: 1024, settings: { slidesToShow: 2 } },
@@ -282,21 +272,21 @@ export function Homepage() {
         settings: {
           slidesToShow: 1,
           centerMode: true,
-          centerPadding: "80px",
-          variableWidth: false,
+          centerPadding: "0px",   // ensures it’s truly centered
+          variableWidth: false,   // stops multi-row wrap
         },
       },
       {
         breakpoint: 480,
         settings: {
           slidesToShow: 1,
-          centerMode: true,
-          centerPadding: "40px",
+          centerMode: false,      // no side offset on small phones
           variableWidth: false,
         },
       },
     ],
   };
+  
   
   
 
