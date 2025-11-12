@@ -293,9 +293,9 @@ export function Homepage() {
         <div className="absolute inset-0 bg-black/40"></div>
       </div>
 
-      <div className="relative z-10 container mx-auto pt-28 pb-16 sm:pt-40 sm:pb-24 px-6 flex flex-col sm:flex-row items-center">
+      <div className="relative z-10 container mx-auto pt-28 pb-16 sm:pt-40 sm:pb-24 px-6 flex flex-col lg:flex-row items-center">
         <motion.div
-          className="sm:w-3/5 text-center sm:text-left mb-12 sm:mb-0"
+          className="w-full lg:w-1/2 xl:w-3/5 text-center lg:text-left mb-12 lg:mb-0"
           variants={containerVariants}
           initial="hidden"
           animate="visible"
@@ -306,11 +306,11 @@ export function Homepage() {
           >
             <h1 className="text-4xl sm:text-5xl md:text-6xl font-bold leading-tight font-serif tracking-tight animate-stream-text">
               <AnimatedLetters
-                text="Diverse by Design."
+                text="Uniquely Sourced."
                 className=""
               />
               <AnimatedLetters
-                text="Quality in Practice."
+                text="Globally Supplied."
                 className="mt-2"
               />
             </h1>
@@ -334,7 +334,7 @@ export function Homepage() {
           </motion.a>
         </motion.div>
 
-        <div className="sm:w-2/5 flex justify-center">
+        <div className="w-full lg:w-1/2 xl:w-2/5 flex justify-center">
           <Swiper
             modules={[Autoplay, EffectFade]}
             effect="fade"
