@@ -242,7 +242,7 @@ export function FreshFromFarm() {
           className="mb-6"
         >
           <h1 className="text-4xl sm:text-5xl md:text-6xl font-bold mb-6 leading-tight font-serif tracking-tight animate-stream-text-green">
-            <AnimatedLetters text="Fresh From the Farm" />
+            <AnimatedLetters text="Fresh from Farm" />
           </h1>
         </motion.div>
 
