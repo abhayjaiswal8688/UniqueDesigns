@@ -119,6 +119,25 @@ const slickStyles = `
     color: #ffb347;
     opacity: 1;
   }
+    /* Fix card width distortion on mobile */
+.featured-slider .slick-slide {
+  width: auto !important;
+  display: flex !important;
+  justify-content: center;
+}
+
+.featured-slider .slick-slide > div {
+  width: 85vw !important;
+  max-width: 320px;
+}
+
+/* Prevent text squeeze */
+@media (min-width: 768px) {
+  .featured-slider .slick-slide > div {
+    width: 260px !important;
+  }
+}
+
 
   @media (max-width: 768px) {
     .featured-slider .slick-prev,
@@ -248,28 +267,37 @@ export function Homepage() {
   const sliderSettings = {
     dots: true,
     infinite: true,
-    speed: 500,
+    speed: 600,
     slidesToShow: 4,
     slidesToScroll: 1,
+    autoplay: true,
+    autoplaySpeed: 3000,
+    pauseOnHover: true,
+    variableWidth: true,
     responsive: [
-      {
-        breakpoint: 1280,
-        settings: { slidesToShow: 3 },
-      },
-      {
-        breakpoint: 1024,
-        settings: { slidesToShow: 2 },
-      },
+      { breakpoint: 1280, settings: { slidesToShow: 3 } },
+      { breakpoint: 1024, settings: { slidesToShow: 2 } },
       {
         breakpoint: 768,
-        settings: { slidesToShow: 1, centerMode: true, centerPadding: "40px" },
+        settings: {
+          slidesToShow: 1,
+          centerMode: true,
+          centerPadding: "80px",
+          variableWidth: false,
+        },
       },
       {
         breakpoint: 480,
-        settings: { slidesToShow: 1, centerMode: true, centerPadding: "24px" },
+        settings: {
+          slidesToShow: 1,
+          centerMode: true,
+          centerPadding: "40px",
+          variableWidth: false,
+        },
       },
     ],
   };
+  
   
 
   return (
