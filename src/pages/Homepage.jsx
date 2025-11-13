@@ -1,15 +1,14 @@
 import React from 'react'
 import { Trans, useTranslation } from "react-i18next"
+import { Link } from "react-router-dom" 
 
 import { Swiper, SwiperSlide } from "swiper/react"
-import { Autoplay, EffectFade } from "swiper/modules"
+import { Autoplay, EffectFade, Navigation, Pagination } from "swiper/modules"
 
 import "swiper/css"
 import "swiper/css/effect-fade"
-
-import Slider from "react-slick"
-import "slick-carousel/slick/slick.css"
-import "slick-carousel/slick/slick-theme.css"
+import "swiper/css/navigation" 
+import "swiper/css/pagination" 
 
 import CountUp from "react-countup"
 import { motion } from "framer-motion"
@@ -63,98 +62,90 @@ const AnimatedLetters = ({ text, className }) => {
   );
 };
 
-const slickStyles = `
-  .featured-slider .slick-list {
-    margin: 0 -12px;
+const swiperStyles = `
+  .featured-products-slider {
+    padding-left: 12px;
+    padding-right: 12px;
   }
 
-  .featured-slider .slick-slide > div {
-    padding: 0 12px;
-  }
-
-  .featured-slider .slick-prev,
-  .featured-slider .slick-next {
+  .featured-products-slider .swiper-button-prev,
+  .featured-products-slider .swiper-button-next {
     width: 50px;
     height: 50px;
-    z-index: 10;
     
     background-color: transparent;
     border: 2px solid #ffffff;
-    
     border-radius: 50%;
     
+    color: #ffffff;
     transition: all 0.3s ease-in-out;
 
-    display: flex !important; 
-    align-items: center;
-    justify-content: center;
+    top: 45% !important; 
+    transform: translateY(-50%) !important; 
   }
   
-  .featured-slider .slick-prev {
+  .featured-products-slider .swiper-button-prev:hover,
+  .featured-products-slider .swiper-button-next:hover {
+    border-color: #f97316;
+    color: #f97316;
+  }
+
+  .featured-products-slider .swiper-button-prev {
     left: 0;
   }
   
-  .featured-slider .slick-next {
+  .featured-products-slider .swiper-button-next {
     right: 0;
   }
-
-  .featured-slider .slick-prev:hover,
-  .featured-slider .slick-next:hover {
-    background-color: transparent;
-    border-color: #f97316;
-  }
   
-  .featured-slider .slick-prev:before,
-  .featured-slider .slick-next:before {
-    font-size: 40px;
-    
-    color: #ffffff;
-
-    opacity: 1;
-    transition: color 0.3s ease-in-out;
-    line-height: normal; 
-    
-    position: relative;
-    top: 2px;
+  .featured-products-slider .swiper-button-prev::after,
+  .featured-products-slider .swiper-button-next::after {
+    font-size: 24px;
+    font-weight: 900 !important; 
   }
 
-  .featured-slider .slick-prev:hover:before,
-  .featured-slider .slick-next:hover:before {
-    color: #f97316;
-  }
-    
-  .featured-slider .slick-dots {
-    bottom: -40px;
+  .featured-products-slider .swiper-pagination {
+    position: relative !important; 
+    bottom: auto !important;       
+    margin-top: 20px !important;  
   }
 
-  .featured-slider .slick-dots li button:before {
-    color: #ffffff;
+
+  .featured-products-slider .swiper-pagination-bullet {
+    background-color: #ffffff;
     opacity: 0.4;
-    font-size: 10px;
   }
 
-  .featured-slider .slick-dots li.slick-active button:before {
-    color: #f97316;
+  .featured-products-slider .swiper-pagination-bullet-active {
+    background-color: #f97316;
     opacity: 1;
   }
 `
 
 const slideImages = [
   {
+    url: "/images/Homepage/SlideShow/Vermicompost.jpg",
+    alt: "A pile of dark, earthy vermicompost",
+  },
+  {
     url: "/images/Homepage/SlideShow/Spices.webp",
-    alt: "Bowls of colorful spices",
+    alt: "An assortment of colorful spices in bowls",
   },
   {
-    url: "/images/Homepage/SlideShow/Plates.webp",
-    alt: "Stack of artisan ceramic plates",
+    url: "/images/FreshFromFarm/Grains/Hemp.jpg",
+    alt: "A close-up of hemp seeds",
   },
   {
-    url: "/images/Homepage/SlideShow/ArtisansArt.webp",
-    alt: "Display of unique artisan handicrafts",
+    url: "/images/Homepage/SlideShow/Makhana.webp",
+    alt: "A bowl of makhana",
+  },
+  {
+    url: "/images/Homepage/SlideShow/Ashwagandha.jpg",
+    alt: "Ashwagandha roots and powder",
   },
   {
     url: "/images/Homepage/SlideShow/Fruits.webp",
-    alt: "Crate of fresh fruits and vegetables",
+    alt: "A crate of colorful fresh fruits",
   },
 ]
 
@@ -184,16 +175,16 @@ const featuredProducts = [
     desc: "Well-aged and composted, perfect for enriching garden soil.",
   },
   {
-    img: "/images/Homepage/FeaturedProducts/Vermicompost.webp",
-    alt: "Vermicompost",
-    title: "Vermicompost",
-    desc: "High-quality organic fertilizer for sustainable farming.",
-  },
-  {
     img: "/images/Homepage/FeaturedProducts/Makhana.webp",
     alt: "Lotus Seeds (Makhana)",
     title: "Lotus Seed (Makhana)",
     desc: "Light, healthy, and a versatile superfood.",
+  },
+  {
+    img: "/images/Homepage/FeaturedProducts/Vermicompost.webp",
+    alt: "Vermicompost",
+    title: "Vermicompost",
+    desc: "High-quality organic fertilizer for sustainable farming.",
   },
   {
     img: "/images/Homepage/FeaturedProducts/Ragi.webp",
@@ -246,40 +237,19 @@ export function Homepage() {
   const { t } = useTranslation()
   const { line1, line2 } = t("description", { channel: "RoadsideCoder" })
 
-  const sliderSettings = {
-    dots: true,
-    infinite: true,
-    speed: 500,
-    slidesToShow: 4,
-    slidesToScroll: 1,
-    responsive: [
-      {
-        breakpoint: 1280,
-        settings: {
-          slidesToShow: 3,
-          slidesToScroll: 1,
-        },
-      },
-      {
-        breakpoint: 1024,
-        settings: {
-          slidesToShow: 2,
-          slidesToScroll: 1,
-        },
-      },
-      {
-        breakpoint: 640,
-        settings: {
-          slidesToShow: 1,
-          slidesToScroll: 1,
-        },
-      },
-    ],
-  }
+  // --- 1. ADDED: Smooth scroll handler ---
+  const handleScrollToProducts = (e) => {
+    e.preventDefault(); // Stop the default anchor jump
+    const element = document.getElementById('products');
+    if (element) {
+      // Smoothly scroll to the "products" section
+      element.scrollIntoView({ behavior: 'smooth' });
+    }
+  };
 
   return (
     <div className="relative min-h-screen">
-      <style>{slickStyles}</style>
+      <style>{swiperStyles}</style>
 
       <div className="fixed inset-0 z-0 overflow-hidden">
         <video
@@ -295,7 +265,7 @@ export function Homepage() {
 
       <div className="relative z-10 container mx-auto pt-28 pb-16 sm:pt-40 sm:pb-24 px-6 flex flex-col lg:flex-row items-center">
         <motion.div
-          className="w-full lg:w-1/2 xl:w-3/5 text-center lg:text-left mb-12 lg:mb-0"
+          className="w-full lg:w-3/5 text-center z-25 lg:text-left mb-12 lg:mb-0"
           variants={containerVariants}
           initial="hidden"
           animate="visible"
@@ -304,7 +274,7 @@ export function Homepage() {
             variants={taglineHeaderVariants}
             className="mb-6"
           >
-            <h1 className="text-4xl sm:text-5xl md:text-6xl font-bold leading-tight font-serif tracking-tight animate-stream-text">
+            <h1 className="text-4xl md:text-6xl font-bold leading-tight font-serif tracking-tight animate-stream-text">
               <AnimatedLetters
                 text="Uniquely Sourced."
                 className=""
@@ -320,13 +290,13 @@ export function Homepage() {
             className="text-lg md:text-xl text-gray-200 mb-10 text-justify mt-6 leading-relaxed"
             variants={itemVariants}
           >
-            Discover our premium, globally-sourced collection from
-            sustainable agri-products and unique handicrafts to
-            industrial-grade steel and UPVC items.
+            Connecting sustainable farms to the global market. Discover our premium collection of herbal, food, and agricultural products.
           </motion.p>
 
+          {/* --- 2. UPDATED: Added onClick handler to this button --- */}
           <motion.a
             href="#products"
+            onClick={handleScrollToProducts} 
             className="bg-orange-500 text-white font-bold py-3 px-8 rounded-full text-lg hover:bg-orange-600 transition duration-300"
             variants={itemVariants}
           >
@@ -334,7 +304,7 @@ export function Homepage() {
           </motion.a>
         </motion.div>
 
-        <div className="w-full lg:w-1/2 xl:w-2/5 flex justify-center">
+        <div className="w-full lg:ml-20 lg:w-2/5 flex justify-center">
           <Swiper
             modules={[Autoplay, EffectFade]}
             effect="fade"
@@ -380,7 +350,7 @@ export function Homepage() {
               variants={itemVariants}
             >
               <img
-                src="/images/Homepage/SlideShow/Spices.webp"
+                src="/images/Homepage/Turmeric.jpg"
                 alt="Herbal Products and Spices"
                 className="w-full h-56 object-cover"
                 loading="eager"
@@ -393,12 +363,12 @@ export function Homepage() {
                   Discover our range of pure herbal powders like Moringa
                   and Amla, alongside authentic, flavorful spices.
                 </p>
-                <a
-                  href="/HerbalProducts"
+                <Link
+                  to="/HerbalProducts"
                   className="text-orange-500 font-semibold hover:text-orange-400 transition-colors"
                 >
                   View Products &rarr;
-                </a>
+                </Link>
               </div>
             </motion.div>
 
@@ -410,7 +380,7 @@ export function Homepage() {
                 src="/images/Homepage/FeaturedProducts/Vermicompost.webp"
                 alt="Organic Vermicompost"
                 className="w-full h-56 object-cover"
-                loading="eager"
+                loading="eagier"
               />
               <div className="p-6">
                 <h3 className="text-2xl font-bold text-white mb-3">
@@ -420,12 +390,12 @@ export function Homepage() {
                   High-quality vermicompost and aged cow dung manure to
                   enrich your soil and promote sustainable growth.
                 </p>
-                <a
-                  href="/Manures"
+                <Link
+                  to="/Manures"
                   className="text-orange-500 font-semibold hover:text-orange-400 transition-colors"
                 >
                   View Products &rarr;
-                </a>
+                </Link>
               </div>
             </motion.div>
             
@@ -447,12 +417,12 @@ export function Homepage() {
                   Explore our collection of organic flours, cold-pressed
                   oils, honey, and other natural food items.
                 </p>
-                <a
-                  href="/FoodProducts"
+                <Link
+                  to="/FoodProducts"
                   className="text-orange-500 font-semibold hover:text-orange-400 transition-colors"
                 >
                   View Products &rarr;
-                </a>
+                </Link>
               </div>
             </motion.div>
             
@@ -469,15 +439,34 @@ export function Homepage() {
           </div>
 
           <motion.div
-            className="relative px-12 featured-slider"
+            className="relative px-12 featured-products-slider"
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5 }}
             viewport={{ once: true }}
           >
-            <Slider {...sliderSettings}>
+            <Swiper
+              modules={[Navigation, Pagination]} 
+              spaceBetween={24} 
+              slidesPerView={1}  
+              navigation={true}  
+              pagination={{ clickable: true }} 
+              loop={true}
+              breakpoints={{
+                640: {
+                  slidesPerView: 2,
+                },
+                1024: {
+                  slidesPerView: 3,
+                },
+                1280: {
+                  slidesPerView: 4,
+                },
+              }}
+              className=""
+            >
               {featuredProducts.map((product, index) => (
-                <div key={index}>
+                <SwiperSlide key={index}>
                   <div className="bg-black/50 h-75 backdrop-blur-sm rounded-lg shadow-xl overflow-hidden transform transition-transform duration-300 hover:-translate-y-2 border border-white/40">
                     <img
                       src={product.img}
@@ -493,9 +482,9 @@ export function Homepage() {
                       </p>
                     </div>
                   </div>
-                </div>
+                </SwiperSlide>
               ))}
-            </Slider>
+            </Swiper>
           </motion.div>
         </div>
       </div>
@@ -521,12 +510,13 @@ export function Homepage() {
                 innovation, and an unwavering commitment to sustainable,
                 top-notch products.
               </p>
-              <a
-                href="/AboutUs"
+              {/* --- 3. UPDATED: Converted <a> to <Link> --- */}
+              <Link
+                to="/AboutUs"
                 className="bg-orange-500 text-white font-bold py-3 px-8 rounded-full text-lg hover:bg-orange-600 transition duration-300"
               >
                 Learn More About Us
-              </a>
+              </Link>
             </div>
 
             <div className="md:w-1/2 flex justify-center">
@@ -739,7 +729,7 @@ export function Homepage() {
                   alt="MSME Registered"
                   className="h-20 w-30 mx-auto mb-3"
                 />
-                <p className="text-white font-semibold">
+                <p className="text-white font-Ggsemibol">
                   MSME Registered
                 </p>
               </motion.div>
@@ -751,7 +741,7 @@ export function Homepage() {
                 <img
                   src="/images/Homepage/OurCredentials/BURA.jpg"
                   alt="Bhartiya Udyog Ratan Award"
-                  className="h-20 w-30 mx-auto mb-3"
+                  className="h-20 w-3m mx-auto mb-3"
                 />
                 <p className="text-white font-semibold">
                   Bhartiya Udyog Ratan Award
