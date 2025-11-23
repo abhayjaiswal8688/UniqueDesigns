@@ -18,8 +18,8 @@ function App() {
       <Routes>
         <Route path="/" element={<Homepage />} />
         <Route path='/FreshFromFarm' element={<FreshFromFarm />} />
-        <Route path='AboutUs' element={ <Aboutus /> } />
-        <Route path='ContactUs' element={ <Contactus /> } />
+        <Route path='/AboutUs' element={ <Aboutus /> } />
+        <Route path='/ContactUs' element={ <Contactus /> } />
         <Route path='/FoodProducts' element={<NaturalProductPage />}/>
         <Route path='/Manures' element={<ManurePage />}/>
         <Route path='/HerbalProducts' element={<HerbalProduct />}/>
