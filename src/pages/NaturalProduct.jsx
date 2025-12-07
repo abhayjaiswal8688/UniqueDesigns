@@ -377,7 +377,7 @@ export function NaturalProductPage() { // Changed to named export as in original
          
 
         <h1 className="mb-6 mt-9 text-center text-2xl font-bold tracking-tight text-white sm:text-3xl">
-          Organic Collection
+          more food products
         </h1>
         <hr className="w-1/6 mx-auto mb-10 border-t-2 border-green-500/80" />
           <motion.div
