@@ -1,20 +1,14 @@
 "use client";
 
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import { motion } from "framer-motion";
-import { Send } from "lucide-react";
+import { Send, Phone, Mail, Clock, MapPin, MessageCircle } from "lucide-react";
 import emailjs from "@emailjs/browser";
 
-// ✅ Background video section
+// BG Video
 const VideoBackground = () => (
   <div className="fixed inset-0 w-full h-full z-0 pointer-events-none">
-    <video
-      autoPlay
-      muted
-      loop
-      playsInline
-      className="w-full h-full object-cover"
-    >
+    <video autoPlay muted loop playsInline className="w-full h-full object-cover">
       <source src="/videos/contact-us-bg.mp4" type="video/mp4" />
     </video>
     <div className="absolute inset-0 bg-black/10"></div>
@@ -22,38 +16,59 @@ const VideoBackground = () => (
   </div>
 );
 
+// CONTACT DATA
+const phoneNumbers = {
+  india: ["+91 94313 50179", "+91 91221 98880"],
+  canada: ["+1 604 417 4321", "+1 604 951 9511"],
+};
+
 const contactCards = [
-  { icon: "📞", title: "Phone", content: "+91 9431350139" },
-  { icon: "✉️", title: "Email", content: "uniquedesigns261@gmail.com" },
-  { icon: "⏰", title: "Business Hours", content: "Open 24 x 7" },
-  { icon: "📍", title: "Corporate Office", content: "Thesteelplus.com, India" },
+  {
+    icon: Clock,
+    title: "Business Hours",
+    content: "Open 24 x 7",
+  },
+  {
+    icon: MapPin,
+    title: "Headquarters (India)",
+    content: "Tupudana Industrial Area, Tupudana, Ranchi, Jharkhand, India",
+  },
+  {
+    icon: MapPin,
+    title: "Headquarters (Canada)",
+    content: "Ford Pitt Road, Pitt Meadows, Vancouver, BC, Canada",
+  },
 ];
 
+const CONTACT_EMAIL = "info.in@uniquedesigns.com";
+
+// FAQs
 const faqs = [
   {
     question: "How soon will I get a response?",
-    answer:
-      "We typically respond within 24 hours. For urgent inquiries, please call us directly.",
+    answer: "We typically respond within 24 hours. For urgent inquiries, call us directly.",
   },
   {
     question: "Do you handle export orders?",
-    answer:
-      "Yes, we specialize in large-scale export and international partnerships.",
+    answer: "Yes, we specialize in large-scale export and international partnerships.",
   },
 ];
 
-// --- THIS COMPONENT IS NOW FIXED ---
+// LINKS HELPERS (JS VERSION)
+const getWhatsAppLink = (number) => {
+  const digits = number.replace(/[^\d]/g, "");
+  return `https://wa.me/${digits}`;
+};
+
+const getGmailLink = (email) => {
+  return `https://mail.google.com/mail/?view=cm&fs=1&to=${encodeURIComponent(email)}`;
+};
+
+// CONTACT FORM
 const ContactForm = () => {
   const [status, setStatus] = useState("idle");
-  
-  // 1. Fixed the 'useState' object
-  const [form, setForm] = useState({ 
-    name: "",
-    email: "",
-    message: "" // Added missing 'message' property
-  });
+  const [form, setForm] = useState({ name: "", email: "", message: "" });
 
-  // 2. Added the handler functions (these were missing/broken)
   const handleChange = (e) =>
     setForm((prev) => ({ ...prev, [e.target.name]: e.target.value }));
 
@@ -83,7 +98,6 @@ const ContactForm = () => {
     }
   };
 
-  // 3. Added the 'return' statement for the JSX
   return (
     <form
       onSubmit={handleSubmit}
@@ -132,19 +146,19 @@ const ContactForm = () => {
 
       {status === "sent" && (
         <p className="text-green-400 text-center mt-2 font-medium">
-          ✅ Message sent successfully!
+          Message sent successfully!
         </p>
       )}
       {status === "error" && (
         <p className="text-red-400 text-center mt-2 font-medium">
-          ❌ Failed to send. Try again.
+          Failed to send. Try again.
         </p>
       )}
     </form>
   );
 };
-// --- END OF FIX ---
 
+// MAIN COMPONENT
 export function Contactus() {
   return (
     <section
@@ -163,34 +177,107 @@ export function Contactus() {
           Let’s Connect & Collaborate
         </h1>
         <p className="text-gray-300 text-sm md:text-base max-w-2xl mx-auto">
-          Have a question, idea, or business inquiry? Reach out — our team is
-          ready to help you 24/7.
+          Have a question, idea, or business inquiry? Reach out — we respond fast.
         </p>
       </motion.div>
 
       <div className="relative z-10 w-full max-w-6xl mx-auto flex flex-col lg:flex-row gap-10 px-6">
-        {/* Left: Contact Info */}
+        
+        {/* LEFT CARD */}
         <motion.div
           initial={{ x: -60, opacity: 0 }}
           animate={{ x: 0, opacity: 1 }}
           transition={{ duration: 0.8 }}
           className="lg:w-1/3 w-full bg-black/50 backdrop-blur-lg border border-blue-500 rounded-xl p-8 shadow-lg shadow-black/60 hover:bg-black/70 transition-all"
         >
-          <h2 className="text-3xl font-bold mb-6 text-blue-400">
-            Contact Us
-          </h2>
-          <p className="text-gray-300 mb-8 text-sm leading-relaxed">
-            We’d love to hear from you. Whether it’s about our products,
-            collaborations, or support — our team is available 24/7.
-          </p>
+          <h2 className="text-3xl font-bold mb-6 text-blue-400">Contact Us</h2>
 
-          <div className="space-y-4">
+          {/* PHONE SECTION */}
+          <div className="space-y-5 mb-8">
+            <div className="flex items-center gap-3">
+              <div className="flex h-9 w-9 items-center justify-center rounded-full bg-blue-500/20 border border-blue-500/60">
+                <Phone className="w-5 h-5 text-blue-400" />
+              </div>
+              <h3 className="text-lg font-semibold text-white">Call / WhatsApp</h3>
+            </div>
+
+            {/* INDIA */}
+            <div className="ml-1 space-y-1 text-sm">
+              <div className="inline-flex items-center gap-2 rounded-full bg-blue-500/10 px-3 py-1 text-xs font-medium text-blue-300">
+                <span className="h-2 w-2 rounded-full bg-green-400" />
+                India
+              </div>
+              <div className="flex flex-col gap-1 mt-1">
+                {phoneNumbers.india.map((num) => (
+                  <a
+                    key={num}
+                    href={getWhatsAppLink(num)}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="inline-flex items-center gap-2 text-gray-300 hover:text-blue-300 hover:underline"
+                  >
+                    <MessageCircle className="w-4 h-4 text-green-400" />
+                    <span>{num}</span>
+                  </a>
+                ))}
+              </div>
+            </div>
+
+            {/* CANADA */}
+            <div className="ml-1 space-y-1 text-sm mt-3">
+              <div className="inline-flex items-center gap-2 rounded-full bg-blue-500/10 px-3 py-1 text-xs font-medium text-blue-300">
+                <span className="h-2 w-2 rounded-full bg-amber-400" />
+                Canada
+              </div>
+              <div className="flex flex-col gap-1 mt-1">
+                {phoneNumbers.canada.map((num) => (
+                  <a
+                    key={num}
+                    href={getWhatsAppLink(num)}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="inline-flex items-center gap-2 text-gray-300 hover:text-blue-300 hover:underline"
+                  >
+                    <MessageCircle className="w-4 h-4 text-green-400" />
+                    <span>{num}</span>
+                  </a>
+                ))}
+              </div>
+            </div>
+          </div>
+
+          {/* EMAIL */}
+          <div className="space-y-3 mb-8">
+            <div className="flex items-center gap-3">
+              <div className="flex h-9 w-9 items-center justify-center rounded-full bg-blue-500/20 border border-blue-500/60">
+                <Mail className="w-5 h-5 text-blue-400" />
+              </div>
+              <h3 className="text-lg font-semibold text-white">Email</h3>
+            </div>
+            <a
+              href={getGmailLink(CONTACT_EMAIL)}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center gap-2 text-sm text-gray-300 hover:text-blue-300 hover:underline"
+            >
+              <Mail className="w-4 h-4" />
+              <span>{CONTACT_EMAIL}</span>
+            </a>
+          </div>
+
+          {/* OTHER CARDS */}
+          <div className="space-y-4 mt-4">
             {contactCards.map((item) => (
-              <div key={item.title} className="flex gap-3 items-start text-sm">
-                <span className="text-2xl">{item.icon}</span>
+              <div
+                key={item.title}
+                className="flex gap-3 items-start text-sm rounded-lg border border-blue-500/40 bg-black/40 px-4 py-3"
+              >
+                <item.icon className="w-5 h-5 text-blue-400" />
                 <div>
                   <div className="font-semibold text-white">{item.title}</div>
-                  <div className="text-gray-400">{item.content}</div>
+                  <div className="text-gray-400 text-xs leading-relaxed">
+                    {item.content}
+                  </div>
                 </div>
               </div>
             ))}
@@ -201,7 +288,7 @@ export function Contactus() {
           </div>
         </motion.div>
 
-        {/* Right: Form + FAQs */}
+        {/* RIGHT SIDE FORM */}
         <motion.div
           initial={{ x: 60, opacity: 0 }}
           animate={{ x: 0, opacity: 1 }}
@@ -233,4 +320,3 @@ export function Contactus() {
     </section>
   );
 }
-

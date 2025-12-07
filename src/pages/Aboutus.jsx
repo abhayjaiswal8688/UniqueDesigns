@@ -1,15 +1,18 @@
 "use client";
 
-import React, { useState, useEffect } from "react";
+import React from "react";
 import { motion } from "framer-motion";
 import { Link } from "react-router-dom";
 
 /**
  * Aboutus.jsx
- * - SAME as your provided file, only change: image full-view modal for thumbnails.
- * - Modal supports: click outside to close, ESC to close, Download button.
+ * - Background video behind entire page
+ * - Hero animated heading "Pure and Organic"
+ * - Content blocks: About, Vision, Mission, Awards, Media, Team, CTA
+ * - Team members kept as-is
  */
 
+// Background video
 const VideoBackground = ({ src = "/videos/about-bg.mp4" }) => (
   <div className="fixed inset-0 w-full h-full z-0 pointer-events-none">
     <video
@@ -20,401 +23,420 @@ const VideoBackground = ({ src = "/videos/about-bg.mp4" }) => (
       playsInline
       className="w-full h-full object-cover"
     />
-    <div className="absolute inset-0 bg-black/60" />
-    <div className="absolute inset-0 bg-gradient-to-b from-black/30 via-black/50 to-black/80" />
+    {/* dark overlay so text is readable */}
+    <div className="absolute inset-0 bg-black/50" />
   </div>
 );
 
 const SectionContainer = ({ children, className = "" }) => (
-  <div className={`relative z-10 max-w-7xl mx-auto px-6 ${className}`}>{children}</div>
+  <div className={`relative z-10 max-w-6xl mx-auto px-6 ${className}`}>
+    {children}
+  </div>
 );
 
-export function Aboutus() {
-  // ---------- Lightbox state & helpers (ONLY added code) ----------
-  const [lightboxOpen, setLightboxOpen] = useState(false);
-  const [lightboxSrc, setLightboxSrc] = useState("");
-  const [lightboxAlt, setLightboxAlt] = useState("");
+/* ----------------- Motion variants ----------------- */
+const sectionVariant = {
+  hidden: { opacity: 0, y: 18 },
+  visible: {
+    opacity: 1,
+    y: 0,
+    transition: { duration: 0.55, ease: "easeOut" },
+  },
+};
 
-  const openLightbox = (src, alt = "") => {
-    setLightboxSrc(src);
-    setLightboxAlt(alt);
-    setLightboxOpen(true);
-    document.body.style.overflow = "hidden";
+const headingVariant = {
+  hidden: { opacity: 0, scale: 0.98 },
+  visible: {
+    opacity: 1,
+    scale: 1,
+    transition: { duration: 0.42, ease: "easeOut" },
+  },
+};
+
+const taglineHeaderVariants = {
+  hidden: { opacity: 0, y: 10 },
+  visible: {
+    opacity: 1,
+    y: 0,
+    transition: {
+      duration: 0.7,
+      ease: "easeOut",
+      staggerChildren: 0.05,
+      delayChildren: 0.1,
+    },
+  },
+};
+
+const AnimatedLetters = ({ text, className = "" }) => {
+  const lineVariants = {
+    hidden: {},
+    visible: {
+      transition: {
+        staggerChildren: 0.05,
+        delayChildren: 0.1,
+      },
+    },
   };
 
-  const closeLightbox = () => {
-    setLightboxOpen(false);
-    setLightboxSrc("");
-    setLightboxAlt("");
-    document.body.style.overflow = "";
+  const letterVariants = {
+    hidden: {
+      opacity: 0,
+      y: 30,
+      willChange: "transform, opacity",
+    },
+    visible: {
+      opacity: 1,
+      y: 0,
+      willChange: "auto",
+      transition: {
+        type: "spring",
+        damping: 15,
+        stiffness: 80,
+        duration: 0.7,
+      },
+    },
   };
-
-  useEffect(() => {
-    const onKey = (e) => {
-      if (!lightboxOpen) return;
-      if (e.key === "Escape") closeLightbox();
-    };
-    window.addEventListener("keydown", onKey);
-    return () => window.removeEventListener("keydown", onKey);
-  }, [lightboxOpen]);
-
-  const downloadImage = (url) => {
-    const a = document.createElement("a");
-    a.href = url;
-    a.download = url.split("/").pop() || "image";
-    document.body.appendChild(a);
-    a.click();
-    a.remove();
-  };
-  // ----------------------------------------------------------------
 
   return (
-    <div className="relative min-h-screen py-24 text-white bg-[#0b0b0e]">
+    <motion.span
+      className={`inline-block ${className}`}
+      variants={lineVariants}
+      initial="hidden"
+      animate="visible"
+    >
+      {text.split("").map((char, index) => (
+        <motion.span
+          key={char + "-" + index}
+          variants={letterVariants}
+          style={{ display: "inline-block" }}
+        >
+          {char === " " ? "\u00A0" : char}
+        </motion.span>
+      ))}
+    </motion.span>
+  );
+};
+
+/* ----------------- Data ----------------- */
+
+const videoList = [
+  {
+    id: 1,
+    src: "https://www.youtube.com/embed/glSMPZ83oUg",
+    caption: "Television interview on Doordarshan",
+  },
+  {
+    id: 2,
+    src: "https://www.youtube.com/embed/KNQWXDWXAz4",
+    caption: "Insights with Om: The Practice",
+  },
+  {
+    id: 3,
+    src: "https://www.youtube.com/embed/3M3s9cbsKpE",
+    caption: "Second TV Interview",
+  },
+];
+
+const mediaImages = [
+  {
+    id: 1,
+    src: "/images/about/udyog.png",
+    alt: "Udyog Ratna Award",
+    caption: "Receiving the Udyog Ratna Award from Mr. Suresh Prabhu.",
+  },
+  {
+    id: 2,
+    src: "/images/about/presidentaward.png",
+    alt: "President Award",
+    caption: "President Scout Award from the President of India.",
+  },
+  {
+    id: 3,
+    src: "/images/about/news.png",
+    alt: "Newspaper Feature",
+    caption: "Newspaper coverage on Unique Designs' impact.",
+  },
+];
+
+const teamMembers = [
+  {
+    name: "Raakesh Raj",
+    role: "Founder & CEO",
+    image: "/images/about/ceo.png",
+    bio: "Guiding Unique Designs with a long-term vision for ethical exports and rural empowerment.",
+  },
+  {
+    name: "Rishab Kumar",
+    role: "Co-founder, Head Canada",
+    image: "/images/about/rishab.png",
+    bio: "Leads Canadian operations and international partnerships from Vancouver.",
+  },
+  {
+    name: "Prem Aayush",
+    role: "Sales Manager",
+    image: "/images/about/prem.png",
+    bio: "Drives sales strategy and client relationships across global markets.",
+  },
+];
+
+export function Aboutus() {
+  return (
+    <div className="relative min-h-screen text-white overflow-hidden">
+      {/* Background video */}
       <VideoBackground />
 
-      {/* MAIN TWO-COLUMN CONTENT */}
-      <main className="relative z-10 py-14">
-        <SectionContainer>
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 items-start">
-            {/* LEFT: ABOUT */}
-            <motion.article
-              initial={{ y: 12, opacity: 0 }}
-              animate={{ y: 0, opacity: 1 }}
-              transition={{ duration: 0.6 }}
-              className="bg-black/50 backdrop-blur-md border border-orange-500/70 rounded-2xl p-8 shadow-xl"
+      {/* Foreground content */}
+      <div className="relative z-10 py-20">
+        {/* HERO TEXT */}
+        <SectionContainer className="mb-10 text-center">
+          <motion.div
+            variants={taglineHeaderVariants}
+            initial="hidden"
+            animate="visible"
+          >
+            <AnimatedLetters
+              text="Behind Unique Designs"
+              className="text-4xl text-orange-400 sm:text-5xl md:text-7xl mt-20 font-bold mb-6 leading-tight font-serif tracking-tight"
+            />
+          </motion.div>
+        </SectionContainer>
+
+        <main className="pb-12">
+          <SectionContainer className="space-y-12">
+            {/* Intro & short about */}
+            <motion.section
+              initial="hidden"
+              whileInView="visible"
+              viewport={{ once: true, amount: 0.3 }}
+              variants={sectionVariant}
+              className="flex flex-col lg:flex-row gap-8 items-start bg-black/40 rounded-xl p-6 border border-white/10 backdrop-blur-sm"
             >
-              <div className="flex flex-col md:flex-row gap-6">
-                <div className="md:w-1/3 items-start justify-center">
-                  <div className="rounded-md overflow-hidden border-4 border-orange-500/60 shadow-2xl w-48 h-48 flex items-center justify-center bg-white/5 mb-4">
-                    <img
-                      src="/images/about/ceo.png"
-                      alt="CEO - Raakesh Raj"
-                      className="w-full h-full object-cover"
-                    />
+              {/* Left: intro text */}
+              <div className="lg:w-2/3 text-gray-200 leading-relaxed">
+                <h3 className="text-xl md:text-2xl text-orange-400 font-semibold mb-3 text-center lg:text-left">
+                  Who we are
+                </h3>
+                <p className="text-sm md:text-base">
+                  We started our mission with the inception of “INTERIOR
+                  COLLECTION” — a manufacturing firm serving interior and
+                  furniture industries since 2007. Growing through fierce
+                  competition, we expanded into exports and partnered with
+                  farmers and artisans to bring organic, sustainable, and
+                  high-quality products to global markets. Our focus includes
+                  vermicompost, finger millet, lotus seeds, jackfruits, rice,
+                  handicrafts, paintings, stainless-steel &amp; UPVC industrial
+                  products. Headquartered in Ranchi, India, and Vancouver,
+                  Canada, Unique Designs blends local roots with global reach.
+                </p>
+
+                <div className="mt-6 flex flex-wrap gap-4">
+                  <span className="inline-flex items-center gap-2 bg-white/5 px-3 py-2 rounded-md text-xs text-gray-200 border border-white/10">
+                    Quality Certified
+                  </span>
+                  <span className="inline-flex items-center gap-2 bg-white/5 px-3 py-2 rounded-md text-xs text-gray-200 border border-white/10">
+                    Global Shipping
+                  </span>
+                  <span className="inline-flex items-center gap-2 bg-white/5 px-3 py-2 rounded-md text-xs text-gray-200 border border-white/10">
+                    Trusted Partners
+                  </span>
+                </div>
+              </div>
+
+              {/* Right: info column */}
+              <aside className="lg:w-1/3 flex flex-col gap-4">
+                <div className="bg-black/40 rounded-md p-4 text-sm text-gray-200 border border-white/10">
+                  <div className="font-semibold text-white mb-1">
+                    Headquarters (India)
                   </div>
-                  {/* ⬇ Caption space under image */}
-                  <p className="text-sm text-gray-300 text-center italic">
-                    Raakesh Raj — CEO & Founder
-                  </p>
+                  <div className="text-xs">
+                    Tupudana Industrial Area, Ranchi, Jharkhand, India
+                  </div>
                 </div>
 
-                <div className="md:w-2/3 ml-2">
-                  <h2 className="text-2xl font-bold mb-3 text-orange-400">Who we are</h2>
-                  <p className="text-gray-200 leading-relaxed mb-4">
-                    Founded in 2007 as <strong>INTERIOR COLLECTION</strong>, Unique Designs
-                    has evolved into an export-focused enterprise supporting small
-                    farmers and skilled artisans. Headquartered in Ranchi, India with
-                    presence in Vancouver, we partner with local communities to
-                    deliver premium agri-products, handicrafts and industrial goods.
-                    It was highly challenging to grow faster
-                    in the time of cut-throat competition
-                    in the domestic as well as overseas
-                    markets, through we managed to
-                    achieve our desired goals with greater
-                    teamwork and sheer conviction within
-                    a short span of merely 4 years.
-                  </p>
+                <div className="bg-black/40 rounded-md p-4 text-sm text-gray-200 border border-white/10">
+                  <div className="font-semibold text-white mb-1">
+                    Headquarters (Canada)
+                  </div>
+                  <div className="text-xs">
+                    Ford Pitt Road, Pitt Meadows, Vancouver, BC, Canada
+                  </div>
+                </div>
 
-                  <ul className="list-disc ml-5 text-gray-300 space-y-2 mt-2">
-                    <li>Vermicompost, Finger Millet, Lotus Seeds &amp; Premium Spices</li>
-                    <li>Handicrafts, Painterly Art &amp; Handwoven Products</li>
-                    <li>Stainless steel and UPVC industrial goods</li>
-                    <li>Incubated at IIT(ISM) Dhanbad • Export registrations in place</li>
+                <div className="bg-black/40 rounded-md p-4 text-sm text-gray-200 border border-white/10">
+                  <div className="font-semibold text-white mb-1">
+                    Quick Facts
+                  </div>
+                  <ul className="text-xs list-disc ml-5 space-y-1">
+                    <li>20+ team members</li>
+                    <li>300+ farmer cooperative</li>
+                    <li>Annual revenue ~50 million</li>
                   </ul>
                 </div>
-              </div>
-            </motion.article>
-
-            {/* RIGHT: VISION & MISSION */}
-            <motion.section
-              initial={{ y: 12, opacity: 0 }}
-              animate={{ y: 0, opacity: 1 }}
-              transition={{ duration: 0.6, delay: 0.08 }}
-              className="bg-black/50 backdrop-blur-md border border-orange-500/70 rounded-2xl p-8 shadow-xl"
-            >
-              <h3 className="text-2xl font-bold mb-4 text-orange-400">Vision &amp; Mission</h3>
-
-              <p className="text-gray-200 leading-relaxed mb-4">
-                Our primary objective is to aid small farmers and skilled artisans,
-                specialising in Vermicompost, Finger Millet, Lotus Seeds,
-                Jackfruits, Rice & Agri products, Handicraft, and Organic Herbal
-                essentials With headquarters in Ranchi, Jharkhand, India, and
-                Vancouver, BC, Canada, we have established ourselves as a
-                pivotal player in the global products market.
-              </p>
-              <p className="text-gray-200 leading-relaxed mb-4">
-                    Our team of 20+ professionals and a 300+ farmer cooperative
-                    drives quality-first production, ethical sourcing and sustainable
-                    growth. We’re incubated at IIT Dhanbad and certified under multiple
-                    national export and quality standards.
-                    With an annual
-                    revenue of 50 million, Unique Designs is more than just a business;
-                    it's a commitment to excellence in organic exports. We have
-                    successfully carved a niche in the market through our top-notch
-                    products and unwavering dedication to quality.
-                  </p>
-              <p className="text-gray-200 leading-relaxed mb-6">
-                Mission: enable sustainable livelihoods through transparent, tech-enabled
-                supply chains; deliver traceable, high-quality products; and scale impact
-                to benefit communities.
-              </p>
-              <p className="text-gray-200 leading-relaxed mb-6">
-              With numerous certifications and awards, including the Bhartiya Udyog Ratna Award, we prioritize ethical sourcing, fair compensation, and transparency in our cooperative approach, fostering inclusive growth. As we continue to expand globally, we invite you to join us in revolutionizing organic farming for a healthier and more sustainable world.
-              </p>
+              </aside>
             </motion.section>
-          </div>
-        </SectionContainer>
-      </main>
 
-      {/* AWARDS & ACCOMPLISHMENTS */}
-      <section className="relative z-10 py-8">
-        <SectionContainer>
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
-            {/* Left: bullets */}
-            <motion.div
-              initial={{ x: -20, opacity: 0 }}
-              animate={{ x: 0, opacity: 1 }}
-              transition={{ duration: 0.6 }}
-              className="bg-white/6 backdrop-blur-sm border border-orange-500/70 rounded-2xl p-8 shadow-lg"
+            {/* Vision & Mission */}
+            <motion.section
+              initial="hidden"
+              whileInView="visible"
+              viewport={{ once: true, amount: 0.3 }}
+              variants={sectionVariant}
+              className="grid grid-cols-1 md:grid-cols-2 gap-8"
             >
-              <h3 className="text-2xl font-bold text-orange-400 mb-4">
+              <div className="text-center md:text-left bg-black/40 rounded-xl p-5 border border-white/10 backdrop-blur-sm">
+                <h4 className="text-xl font-semibold text-orange-400 mb-2">
+                  Vision
+                </h4>
+                <p className="text-gray-200 text-sm">
+                  To be the trusted bridge between rural producers and
+                  international consumers — creating prosperity for farmers and
+                  artisans while delivering authentic, traceable products.
+                </p>
+              </div>
+
+              <div className="text-center md:text-left bg-black/40 rounded-xl p-5 border border-white/10 backdrop-blur-sm">
+                <h4 className="text-xl font-semibold text-orange-400 mb-2">
+                  Mission
+                </h4>
+                <p className="text-gray-200 text-sm">
+                  Empower local communities through fair partnerships, ensure
+                  strict quality and traceability, and promote sustainable
+                  farming and production practices at scale.
+                </p>
+              </div>
+            </motion.section>
+
+            {/* AWARDS */}
+            <motion.section
+              initial="hidden"
+              whileInView="visible"
+              viewport={{ once: true, amount: 0.3 }}
+              variants={sectionVariant}
+              className="space-y-4 bg-black/40 rounded-xl p-6 border border-white/10 backdrop-blur-sm"
+            >
+              <h3 className="text-center text-2xl text-orange-400 font-semibold">
                 Awards &amp; Accomplishments
               </h3>
-              <ul className="list-disc ml-6 space-y-3 text-gray-200">
-                <li>Certified as a registered "START UP" by the
-                Department for Promotion of Industry and
-                Trade, Govt. of India (DIPP48157).</li>
-                <li>PProvincial Govt. registration and recognition as
-                “START UP” by Department of IT, Govt. of
-                Jharkhand State (ABVIL 2019-0061).</li>
-                <li>Registered under Ministry of MSME, Govt. of ZED
-                India (UDYAM- JH- 0051133) and
-                ZERO
-                Certification under “ZERO DEFECT
-                EFFECT”
-                .</li>
-                <li>Incubated by the Indian Institute of Technology,
-                Dhanbad.</li>
-                <li>Export Promotion Council Registration number
-                RCMC/APEDA/02747/2023-2024.</li>
-                <li>IEC Certifications by Director General Foreign Trade, Govt.
-                of India (IEC Number: AAFFU6531M). Received the Udyog.</li>
-                <li>Ratna Awards from Mr. Suresh Prabhu, (Minister of
-                Railway, Govt. of India) the highest accolades for
-                Industrialists. President Scout Award from President of
-                India (Ms. Neelam Sanjiva Reddy). Worked for Stage, All
-                India Radio, TV & Film for number of years and won number
-                of Awards. Veteran “Social Activist” and “Spiritual writer”
-                writing in Journals & Papers.</li>
-                <li>We take pride in being an ISO 9001:2015 and FSSAI certified
-                company, ensuring that every product we deliver meets the
-                highest standards of quality, safety, and consistency.</li>
-              </ul>
+              <div className="flex flex-col md:flex-row items-start gap-6">
+                <ul className="md:w-1/2 text-gray-300 list-disc ml-6 space-y-2 text-sm">
+                  <li>Registered Startup (DPIIT) &amp; provincial recognition</li>
+                  <li>ZED certification — Zero Defect Zero Effect</li>
+                  <li>Incubated at IIT (ISM) Dhanbad</li>
+                  <li>Export registrations: APEDA RCMC &amp; IEC</li>
+                  <li>
+                    National recognitions for industry &amp; rural job creation
+                  </li>
+                </ul>
 
-              <div className="mt-6 grid grid-cols-2 gap-4">
-                <div>
+                <div className="md:w-1/2 grid grid-cols-2 gap-4">
                   <img
                     src="/images/about/award1.png"
-                    alt="award 1"
-                    className="rounded-md border border-orange-500/60 shadow-md w-full h-40 object-cover mb-4"
+                    alt="award1"
+                    className="w-full h-24 object-cover rounded-md border border-white/10 shadow-sm"
                   />
-                  <p className="text-sm text-gray-300 text-center italic">Award Ceremony 2019</p>
-                </div>
-
-                <div>
                   <img
                     src="/images/about/award2.png"
-                    alt="award 2"
-                    className="rounded-md border border-orange-500/60 shadow-md w-full h-40 object-cover mb-4"
+                    alt="award2"
+                    className="w-full h-24 object-cover rounded-md border border-white/10 shadow-sm"
                   />
-                  <p className="text-sm text-gray-300 text-center italic">Recognition by Export Council</p>
                 </div>
               </div>
-            </motion.div>
+            </motion.section>
 
-            {/* Right: media thumbnails */}
-            {/* Media & Interviews (with your 3 YouTube videos) */}
-<motion.div
-  initial={{ x: 20, opacity: 0 }}
-  animate={{ x: 0, opacity: 1 }}
-  transition={{ duration: 0.6 }}
-  className="bg-white/6 backdrop-blur-sm border border-orange-500/70 rounded-2xl p-6 shadow-lg"
->
-  <h3 className="text-2xl font-bold text-orange-400 mb-4">Media & Interviews</h3>
-
-  <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
-    {/* Video 1 */}
-    <div>
-      <div className="rounded-md overflow-hidden border border-orange-500/60 mb-4">
-        <iframe
-          src="https://www.youtube.com/embed/glSMPZ83oUg"
-          title="YouTube Video 1"
-          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-          allowFullScreen
-          className="w-full aspect-video"
-        ></iframe>
-      </div>
-      <p className="text-sm text-gray-300 text-center italic">Television Interview with CEO of Unique
-      Designs on Doordarshan Channel</p>
-    </div>
-
-    {/* Video 2 */}
-    <div>
-      <div className="rounded-md overflow-hidden border border-orange-500/60 mb-4">
-        <iframe
-          src="https://www.youtube.com/embed/KNQWXDWXAz4"
-          title="YouTube Video 2"
-          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-          allowFullScreen
-          className="w-full aspect-video"
-        ></iframe>
-      </div>
-      <p className="text-sm text-gray-300 text-center italic">
-      Insights with Om: The Practice</p>
-    </div>
-
-    {/* Video 3 */}
-    <div>
-      <div className="rounded-md overflow-hidden border border-orange-500/60 mb-4">
-        <iframe
-          src="https://www.youtube.com/embed/3M3s9cbsKpE"
-          title="YouTube Video 3"
-          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-          allowFullScreen
-          className="w-full aspect-video"
-        ></iframe>
-      </div>
-      <p className="text-sm text-gray-300 text-center italic">Second Interview with CEO of Unique
-      Designs on Doordarshan Channel</p>
-    </div>
-
-    {/* Three image thumbnails (now open fullview on click) */}
-    <div>
-      <button
-        type="button"
-        onClick={() => openLightbox("/images/about/udyog.png", "Newspaper Feature")}
-        className="w-full text-left"
-      >
-        <img
-          src="/images/about/udyog.png"
-          alt="Media Thumbnail 1"
-          className="rounded-md border border-orange-500/60 shadow-md w-full h-40 object-cover mb-4"
-        />
-        <p className="text-sm text-gray-300 text-center italic">Receiving the Udyog Ratna
-Awards from Mr. Suresh
-Prabhu, (Minister of Railway,
-Govt. of India) the highest
-accolades for Industrialists.</p>
-      </button>
-    </div>
-
-    <div>
-      <button
-        type="button"
-        onClick={() => openLightbox("/images/about/presidentaward.png", "Award Function")}
-        className="w-full text-left"
-      >
-        <img
-          src="/images/about/presidentaward.png"
-          alt="Media Thumbnail 2"
-          className="rounded-md border border-orange-500/60 shadow-md w-full h-40 object-cover mb-4"
-        />
-        <p className="text-sm text-gray-300 text-center italic">President Scout Award
-from President of India
-Ms. Neelam Sanjiva Reddy</p>
-      </button>
-    </div>
-
-    <div>
-      <button
-        type="button"
-        onClick={() => openLightbox("/images/about/news.png", "Press Coverage")}
-        className="w-full text-left"
-      >
-        <img
-          src="/images/about/news.png"
-          alt="Media Thumbnail 3"
-          className="rounded-md border border-orange-500/60 shadow-md w-full h-40 object-cover mb-4"
-        />
-        <p className="text-sm text-gray-300 text-center italic">Newspaper Feature on
-Unique Designs Job
-Creation in Jharkhand
-State</p>
-      </button>
-    </div>
-  </div>
-</motion.div>
-
-          </div>
-        </SectionContainer>
-      </section>
-
-      {/* ---------- Lightbox modal (only added code) ---------- */}
-      {lightboxOpen && (
-        <div
-          className="fixed inset-0 z-50 flex items-center justify-center bg-black/70 px-4 py-8"
-          onClick={(e) => {
-            if (e.target === e.currentTarget) closeLightbox();
-          }}
-          role="dialog"
-          aria-modal="true"
-        >
-          <motion.div
-            initial={{ scale: 0.95, opacity: 0 }}
-            animate={{ scale: 1, opacity: 1 }}
-            className="relative max-w-[90vw] max-h-[90vh] w-full"
-          >
-            <div className="bg-black/90 rounded-md p-4 flex flex-col items-center">
-              <img
-                src={lightboxSrc}
-                alt={lightboxAlt}
-                className="max-h-[80vh] w-auto object-contain rounded"
-              />
-
-              <div className="mt-3 flex items-center gap-3">
-                <button
-                  onClick={closeLightbox}
-                  className="px-3 py-2 rounded bg-white/5 hover:bg-white/10"
-                  aria-label="Close image"
-                >
-                  Close
-                </button>
-
-                <button
-                  onClick={() => downloadImage(lightboxSrc)}
-                  className="px-3 py-2 rounded bg-orange-500 hover:bg-orange-400 text-black font-semibold"
-                  aria-label="Download image"
-                >
-                  Download
-                </button>
+            {/* MEDIA */}
+            <motion.section
+              initial="hidden"
+              whileInView="visible"
+              viewport={{ once: true, amount: 0.3 }}
+              variants={sectionVariant}
+              className="space-y-4 bg-black/40 rounded-xl p-6 border border-white/10 backdrop-blur-sm"
+            >
+              <h3 className="text-center text-2xl text-orange-400 font-semibold">
+                Media &amp; Interviews
+              </h3>
+              <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+                {videoList.map((v) => (
+                  <div
+                    key={v.id}
+                    className="rounded-md overflow-hidden border border-white/10 bg-black/40"
+                  >
+                    <iframe
+                      src={v.src}
+                      title={v.caption}
+                      allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                      allowFullScreen
+                      className="w-full aspect-video"
+                    />
+                    <p className="text-xs text-gray-300 p-2">{v.caption}</p>
+                  </div>
+                ))}
               </div>
 
-              {lightboxAlt && <p className="text-sm text-gray-300 mt-3 italic">{lightboxAlt}</p>}
-            </div>
-          </motion.div>
-        </div>
-      )}
-      {/* ----------------------------------------------------- */}
+              <div className="mt-3 grid grid-cols-1 md:grid-cols-3 gap-4">
+                {mediaImages.map((m) => (
+                  <div key={m.id} className="text-center">
+                    <img
+                      src={m.src}
+                      alt={m.alt}
+                      className="w-full h-28 object-cover rounded-md border border-white/10 shadow-sm"
+                    />
+                    <p className="text-xs text-gray-300 mt-2">{m.caption}</p>
+                  </div>
+                ))}
+              </div>
+            </motion.section>
 
-      {/* CTA / Footer band */}
-      <footer className="relative z-10 py-12">
-        <SectionContainer>
-          <div className="bg-black/50 backdrop-blur-md border border-orange-500/70 rounded-2xl p-8 text-center shadow-lg">
-            <h4 className="text-2xl md:text-3xl font-bold mb-3 text-orange-400">
-              Ready to collaborate?
-            </h4>
-            <p className="text-gray-300 mb-6">
-              Contact our team for partnerships, exports, or product sourcing.
-            </p>
-            <Link
-              to="/ContactUs"
-              className="inline-block bg-orange-500 hover:bg-orange-600 text-white font-semibold px-6 py-3 rounded-full transition"
+            {/* TEAM */}
+            <motion.section
+              initial="hidden"
+              whileInView="visible"
+              viewport={{ once: true, amount: 0.25 }}
+              variants={sectionVariant}
+              className="space-y-6"
             >
-              Connect with us
-            </Link>
-          </div>
-        </SectionContainer>
-      </footer>
+              <h3 className="text-center text-2xl text-orange-400 font-semibold">
+                Our Core Team
+              </h3>
+
+              <div className="grid grid-cols-1 sm:grid-cols-3 gap-6">
+                {teamMembers.map((m, i) => (
+                  <motion.div
+                    key={m.name}
+                    initial={{ opacity: 0, y: 10 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    viewport={{ once: true }}
+                    transition={{ delay: i * 0.07 }}
+                    className="bg-black/40 rounded-lg p-5 flex flex-col items-center text-center border border-white/10 backdrop-blur-sm"
+                  >
+                    <div className="w-24 h-24 rounded-full overflow-hidden border-2 border-orange-400 mb-3">
+                      <img
+                        src={m.image}
+                        alt={m.name}
+                        className="w-full h-full object-cover"
+                      />
+                    </div>
+                    <div className="font-semibold text-white">{m.name}</div>
+                    <div className="text-xs text-orange-300 mt-1 px-3 py-1 rounded-full bg-black/60">
+                      {m.role}
+                    </div>
+                    <p className="text-xs text-gray-300 mt-3">{m.bio}</p>
+                  </motion.div>
+                ))}
+              </div>
+            </motion.section>
+
+            {/* CTA */}
+            <div className="text-center">
+              <Link
+                to="/ContactUs"
+                className="inline-block bg-orange-400 hover:bg-orange-500 text-black px-6 py-3 rounded-full font-semibold shadow-sm"
+              >
+                Connect with us
+              </Link>
+            </div>
+          </SectionContainer>
+        </main>
+      </div>
     </div>
   );
 }

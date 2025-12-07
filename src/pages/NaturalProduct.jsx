@@ -245,14 +245,6 @@ const products = [
 ];
 
 const oils=[
-   {
-    id: 5,
-    name: 'Pongamia oil',
-    description: 'Explore the traditional benefits of our naturally sourced Pongamia oil (Karanja oil), extracted from seeds grown purely without chemicals. Valued in Ayurvedic practices for its therapeutic properties, it is often used externally for skin care and in natural pest repellents.', // Restored
-    dess: 'The Care for You', // Restored
-    imageUrl: './images/FoodProductPage/karanch_oil.jpg',
-    imageAlt: 'Pongamia Oil', // Restored (was Jackfruit before)
-  },
   {
     id: 8, // Corrected ID back if it was duplicated intentionally
     name: 'Mustard Oil',
@@ -262,7 +254,7 @@ const oils=[
     imageAlt: 'Mustard oil',
   },
   {
-    id: 8, // Corrected ID back if it was duplicated intentionally
+    id: 11, // Corrected ID back if it was duplicated intentionally
     name: 'Groundnut Oil',
     description: 'Enjoy the rich, nutty aroma of our pure organic groundnut oil, cold-pressed from peanuts grown naturally without any chemicals. Its high smoke point makes it your perfect, wholesome choice for flavorful, healthy cooking and frying.', // Restored
     dess: 'Nature\'s Best, Bottled for You.', // Restored
@@ -270,7 +262,7 @@ const oils=[
     imageAlt: 'Groundnut oil',
   },
   {
-    id: 8, // Corrected ID back if it was duplicated intentionally
+    id: 111, // Corrected ID back if it was duplicated intentionally
     name: 'Sesame Oil',
     description: 'Experience the rich, nutty flavor of our pure organic sesame oil, slow-pressed from seeds grown naturally without chemicals. Perfect for authentic stir-fries and dressings, this wholesome oil enriches your meals with antioxidants.', // Restored
     dess: 'Taste the purity, feel the goodness', // Restored
