@@ -98,14 +98,14 @@ const Footer = () => {
               </div>
               <div className="pt-4 border-t border-gray-700/50 space-y-2">
                 <a
-                  href="mailto:info.in@uniquedesigns.com"
+                  href="mailto:uniquedesigns.exim@gmail.com"
                   className="block hover:text-orange-500 transition-colors"
                 >
-                  info.in@uniquedesigns.com
+                  uniquedesigns.exim@gmail.com
                 </a>
                 <div className="flex flex-col space-y-1">
                   <a href="tel:+919431350179" className="hover:text-orange-500 transition-colors">
-                    +91 94313 50179
+                    +91 94313 50139
                   </a>
                   <a href="tel:+919122198880" className="hover:text-orange-500 transition-colors">
                     +91 91221 98880
@@ -123,16 +123,16 @@ const Footer = () => {
             <address className="text-gray-400 not-italic space-y-4 text-sm">
               <div className="leading-relaxed">
                 <strong className="text-gray-300 block mb-1">Unique Designs</strong>
-                Ford Pitt Road, Pitt Meadows,<br />
+                 Pitt Meadows,<br />
                 Vancouver, BC,<br />
                 Canada
               </div>
               <div className="pt-4 border-t border-gray-700/50 space-y-2">
                 <a
-                  href="mailto:info.ca@uniquedesigns.com"
+                  href="mailto:udexports.exim@gmail.com"
                   className="block hover:text-orange-500 transition-colors"
                 >
-                  info.ca@uniquedesigns.com
+                  udexports.exim@gmail.com
                 </a>
                 <div className="flex flex-col space-y-1">
                   <a href="tel:+16044174321" className="hover:text-orange-500 transition-colors">

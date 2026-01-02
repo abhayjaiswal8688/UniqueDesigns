@@ -18,7 +18,7 @@ const VideoBackground = () => (
 
 // CONTACT DATA
 const phoneNumbers = {
-  india: ["+91 94313 50179", "+91 91221 98880"],
+  india: ["+91 94313 50139", "+91 91221 98880"],
   canada: ["+1 604 417 4321", "+1 604 951 9511"],
 };
 
@@ -36,11 +36,12 @@ const contactCards = [
   {
     icon: MapPin,
     title: "Headquarters (Canada)",
-    content: "Ford Pitt Road, Pitt Meadows, Vancouver, BC, Canada",
+    content: "Pitt Meadows, Vancouver, BC, Canada",
   },
 ];
 
-const CONTACT_EMAIL = "info.in@uniquedesigns.com";
+const CONTACT_EMAIL = "udexports.exim@gmail.com";
+const CONTACT_EMAIL_2 = "uniquedesigns.exim@gmail.com";
 
 // FAQs
 const faqs = [
@@ -262,6 +263,15 @@ export function Contactus() {
             >
               <Mail className="w-4 h-4" />
               <span>{CONTACT_EMAIL}</span>
+            </a>
+            <a
+              href={getGmailLink(CONTACT_EMAIL)}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center gap-2 text-sm text-gray-300 hover:text-blue-300 hover:underline"
+            >
+              <Mail className="w-4 h-4" />
+              <span>{CONTACT_EMAIL_2}</span>
             </a>
           </div>
 

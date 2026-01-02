@@ -1,9 +1,10 @@
 import React from 'react'
-import { Trans, useTranslation } from "react-i18next"
+import { useTranslation } from "react-i18next"
 import { Link } from "react-router-dom" 
 
 import { Swiper, SwiperSlide } from "swiper/react"
 import { Autoplay, EffectFade, Navigation, Pagination } from "swiper/modules"
+import { Award } from "lucide-react" // Imported Award icon
 
 import "swiper/css"
 import "swiper/css/effect-fade"
@@ -235,14 +236,13 @@ const taglineHeaderVariants = {
 
 export function Homepage() {
   const { t } = useTranslation()
+  // eslint-disable-next-line no-unused-vars
   const { line1, line2 } = t("description", { channel: "RoadsideCoder" })
 
-  // --- 1. ADDED: Smooth scroll handler ---
   const handleScrollToProducts = (e) => {
-    e.preventDefault(); // Stop the default anchor jump
+    e.preventDefault(); 
     const element = document.getElementById('products');
     if (element) {
-      // Smoothly scroll to the "products" section
       element.scrollIntoView({ behavior: 'smooth' });
     }
   };
@@ -263,7 +263,7 @@ export function Homepage() {
         <div className="absolute inset-0 bg-black/40"></div>
       </div>
 
-      <div className="relative z-10 container mx-auto pt-28 pb-16 sm:pt-40 sm:pb-24 px-6 flex flex-col lg:flex-row items-center">
+      <div className="relative z-11 container mx-auto pt-28 pb-16 sm:pt-40 sm:pb-24 px-6 flex flex-col lg:flex-row items-center">
         <motion.div
           className="w-full lg:w-3/5 text-center z-25 lg:text-left mb-12 lg:mb-0"
           variants={containerVariants}
@@ -293,7 +293,6 @@ export function Homepage() {
             Connecting sustainable farms to the global market. Discover our premium collection of herbal, food, and agricultural products.
           </motion.p>
 
-          {/* --- 2. UPDATED: Added onClick handler to this button --- */}
           <motion.a
             href="#products"
             onClick={handleScrollToProducts} 
@@ -510,7 +509,6 @@ export function Homepage() {
                 innovation, and an unwavering commitment to sustainable,
                 top-notch products.
               </p>
-              {/* --- 3. UPDATED: Converted <a> to <Link> --- */}
               <Link
                 to="/AboutUs"
                 className="bg-orange-500 text-white font-bold py-3 px-8 rounded-full text-lg hover:bg-orange-600 transition duration-300"
@@ -729,7 +727,7 @@ export function Homepage() {
                   alt="MSME Registered"
                   className="h-20 w-30 mx-auto mb-3"
                 />
-                <p className="text-white font-Ggsemibol">
+                <p className="text-white font-semibold">
                   MSME Registered
                 </p>
               </motion.div>
@@ -741,12 +739,64 @@ export function Homepage() {
                 <img
                   src="/images/Homepage/OurCredentials/BURA.jpg"
                   alt="Bhartiya Udyog Ratan Award"
-                  className="h-20 w-3m mx-auto mb-3"
+                  className="h-20 w-auto mx-auto mb-3"
                 />
                 <p className="text-white font-semibold">
                   Bhartiya Udyog Ratan Award
                 </p>
               </motion.div>
+
+              <motion.div
+                className="text-center flex flex-col items-center"
+                variants={itemVariants}
+              >
+               
+                <p className="text-white font-semibold">
+                 
+                </p>
+              </motion.div>
+
+              {/* Added Government Recognitions */}
+              <motion.div
+                className="text-center flex flex-col items-center"
+                variants={itemVariants}
+              >
+               <img
+                  src="/images/Homepage/OurCredentials/jharkhand.jpg"
+                  alt="Bhartiya Udyog Ratan Award"
+                  className="h-20 w-auto mx-auto mb-3"
+                />
+                <p className="text-white font-semibold">
+                  Recognized by Goverment of Jharkhand
+                </p>
+              </motion.div>
+
+
+
+              <motion.div
+                className="text-center flex flex-col items-center"
+                variants={itemVariants}
+              >
+               <img
+                  src="/images/Homepage/OurCredentials/india.jpg"
+                  alt="Bhartiya Udyog Ratan Award"
+                  className="h-20 w-auto mx-auto mb-3"
+                />
+                <p className="text-white font-semibold">
+                  Recognized by Goverment of India
+                </p>
+              </motion.div>
+
+              <motion.div
+                className="text-center flex flex-col items-center"
+                variants={itemVariants}
+              >
+            
+                <p className="text-white font-semibold">
+                 
+                </p>
+              </motion.div>
+
             </div>
           </motion.div>
         </div>

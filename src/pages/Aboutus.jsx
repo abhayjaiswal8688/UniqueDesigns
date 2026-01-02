@@ -166,15 +166,15 @@ const teamMembers = [
     bio: "Guiding Unique Designs with a long-term vision for ethical exports and rural empowerment.",
   },
   {
-    name: "Rishab Kumar",
+    name: "Rishabh Kumar",
     role: "Co-founder, Head Canada",
-    image: "/images/about/rishab.png",
+    image: "/images/about/rishab.jpeg",
     bio: "Leads Canadian operations and international partnerships from Vancouver.",
   },
   {
     name: "Prem Aayush",
     role: "Sales Manager",
-    image: "/images/about/prem.png",
+    image: "/images/about/prem.jpeg",
     bio: "Drives sales strategy and client relationships across global markets.",
   },
 ];

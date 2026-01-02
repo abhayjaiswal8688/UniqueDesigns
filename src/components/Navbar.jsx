@@ -14,7 +14,7 @@ export function Navbar() {
   const navLinks = [
     { to: '/', text: 'Homepage' },
     { to: '/AboutUs', text: 'Our Story' },
-    { to: '/HerbalProducts', text: 'Herbal Products' },
+    { to: '/HerbalProducts', text: 'Organic Products' },
     { to: '/Manures', text: 'Manures' },
     { to: '/FoodProducts', text: 'Food Products' },
     { to: '/FreshFromFarm', text: 'Fresh from Farm' },
@@ -34,7 +34,7 @@ export function Navbar() {
           <Link
             key={link.to}
             to={link.to}
-            className="text-lg text-white font-medium hover:text-orange-500 transition-colors tracking-wider"
+            className="text-m text-white font-medium hover:text-orange-500 transition-colors tracking-wider"
           >
             {link.text}
           </Link>

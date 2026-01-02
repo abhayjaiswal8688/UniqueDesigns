@@ -46,8 +46,8 @@ const fruitsProducts = [
   },
   {
     img: '/images/FreshFromFarm/Fruits/Jackfruit.jpg',
-    alt: 'Jackfruit Products',
-    title: 'Jackfruit Products',
+    alt: 'Jackfruit',
+    title: 'Jackfruit',
     desc: 'Sustainably sourced Jackfruits from our network of dedicated farmers.',
   },
 ]
