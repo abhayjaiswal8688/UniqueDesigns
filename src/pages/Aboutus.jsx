@@ -258,7 +258,7 @@ export function Aboutus() {
                     Headquarters (Canada)
                   </div>
                   <div className="text-xs">
-                    Ford Pitt Road, Pitt Meadows, Vancouver, BC, Canada
+                     Pitt Meadows, Vancouver, BC, Canada
                   </div>
                 </div>
 
