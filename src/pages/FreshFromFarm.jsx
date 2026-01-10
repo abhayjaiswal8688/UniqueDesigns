@@ -220,7 +220,7 @@ export function FreshFromFarm() {
     <div className="relative min-h-screen">
       <div className="fixed inset-0 z-0 overflow-hidden">
         <video
-          src="/videos/bg-video1.mp4"
+          src="/videos/bg_video.mp4"
           autoPlay
           loop
           muted
