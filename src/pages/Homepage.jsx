@@ -253,7 +253,7 @@ export function Homepage() {
 
       <div className="fixed inset-0 z-0 overflow-hidden">
         <video
-          src="/videos/bg_video.mp4"
+          src="/videos/Homepage.mp4"
           autoPlay
           loop
           muted
@@ -747,13 +747,12 @@ export function Homepage() {
               </motion.div>
 
               <motion.div
-                className="text-center flex flex-col items-center"
-                variants={itemVariants}
+                  className="hidden md:flex text-center flex-col items-center"
+                  variants={itemVariants}
               >
-               
-                <p className="text-white font-semibold">
-                 
-                </p>
+                  <p className="text-white font-semibold">
+                      {/* Empty content */}
+                  </p>
               </motion.div>
 
               {/* Added Government Recognitions */}
@@ -788,7 +787,7 @@ export function Homepage() {
               </motion.div>
 
               <motion.div
-                className="text-center flex flex-col items-center"
+                className="hidden md:flex text-center flex flex-col items-center"
                 variants={itemVariants}
               >
             
