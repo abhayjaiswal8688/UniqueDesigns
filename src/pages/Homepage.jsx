@@ -4,7 +4,7 @@ import { Link } from "react-router-dom"
 
 import { Swiper, SwiperSlide } from "swiper/react"
 import { Autoplay, EffectFade, Navigation, Pagination } from "swiper/modules"
-import { Award, Globe, Leaf, PackageCheck, Users } from "lucide-react" 
+import { Award, Globe, Leaf, PackageCheck, Users, ClipboardCheck, Filter, FileText, Ship } from "lucide-react" 
 
 import "swiper/css"
 import "swiper/css/effect-fade"
@@ -97,6 +97,45 @@ const featuredProducts = [
   { img: "/images/Homepage/FeaturedProducts/Jackfruit.webp", alt: "Jackfruit Products", title: "Jackfruit Products", desc: "Sustainably harvested and processed for premium quality." },
 ]
 
+// Process Steps Data for cleaner mapping and layout
+const processSteps = [
+  { 
+    icon: Users, 
+    title: "1. Ethical Sourcing & Farmer Onboarding", 
+    desc: "Direct procurement from our 350+ farmer network, ensuring crop planning, fair pricing, and consistency." 
+  },
+  { 
+    icon: Leaf, 
+    title: "2. Harvest Evaluation & Batch Selection", 
+    desc: "Evaluation at source for maturity, purity, and export-grade parameters to ensure suitable batches." 
+  },
+  { 
+    icon: Filter, 
+    title: "3. Cleaning, Grading & Primary Processing", 
+    desc: "Cleaning, sorting, and grading to remove impurities and segregate export-quality material." 
+  },
+  { 
+    icon: Award, 
+    title: "4. Quality Testing & Compliance Checks", 
+    desc: "FSSAI & ISO-aligned quality protocols, hygiene checks, and regulatory compliance testing." 
+  },
+  { 
+    icon: PackageCheck, 
+    title: "5. Private Labeling & Custom Packaging", 
+    desc: "Customized packaging formats, bulk packing options, and private labeling as per buyer branding." 
+  },
+  { 
+    icon: FileText, 
+    title: "6. Documentation & Export Readiness", 
+    desc: "Preparation of invoices, packing lists, certificates, and compliance paperwork for smooth clearance." 
+  },
+  { 
+    icon: Ship, 
+    title: "7. Global Logistics & Delivery", 
+    desc: "Coordination of reliable logistics and freight forwarding for timely shipment and safe delivery to your port." 
+  },
+]
+
 export function Homepage() {
   const { t } = useTranslation()
   const animationDuration = 4
@@ -136,10 +175,18 @@ export function Homepage() {
         >
           <motion.div variants={taglineHeaderVariants} className="mb-6">
             <h1 className="text-4xl md:text-6xl font-bold leading-tight font-serif tracking-tight animate-stream-text">
-              <AnimatedLetters text="Unique Designs:" className="" />
-              <AnimatedLetters text="Agri Products Export" className="mt-2 text-3xl md:text-5xl" />
-              <AnimatedLetters text="From INDIA to WORLD." className="mt-2 text-3xl md:text-5xl text-orange-500" />
+              <AnimatedLetters text="Uniquely Sourced." className="" />
+              <AnimatedLetters text="Globally Supplied." className="mt-2 text-orange-500" />
             </h1>
+            
+            {/* Subheading */}
+            <motion.div 
+              className="mt-6 text-xl md:text-2xl font-semibold text-gray-100 border-l-4 border-orange-500 pl-4"
+              variants={itemVariants}
+            >
+              <span className="block text-orange-400">Unique Designs: Most Trusted</span>
+              Agri Products Exporter From INDIA to WORLD
+            </motion.div>
           </motion.div>
 
           <motion.p className="text-lg md:text-xl text-gray-200 mb-10 text-justify mt-6 leading-relaxed" variants={itemVariants}>
@@ -254,114 +301,89 @@ export function Homepage() {
         </div>
       </div>
 
-       {/* ---------------- OUR PROCESS FLOWCHART ---------------- */}
+       {/* ---------------- OUR PROCESS SECTION (UPDATED) ---------------- */}
        <div className="relative z-10 pb-16 md:pb-24">
         <div className="container mx-auto px-6">
           <div className="text-center mb-12">
             <h2 className="text-3xl sm:text-4xl font-bold text-white inline-block border-b-2 border-orange-500 pb-4">
-              Our Process to Export
+              Our Export Process
             </h2>
-            <p className="text-gray-300 mt-4">Agriculture Products from INDIA to the World</p>
+            <p className="text-xl text-orange-400 font-semibold mt-4">From Indian Farms to Global Markets</p>
+            <p className="text-gray-300 mt-4 max-w-3xl mx-auto">
+              At Unique Designs, we follow a structured, transparent export process that ensures ethical sourcing, certified quality, and smooth global delivery.
+            </p>
           </div>
 
           <motion.div 
-            className="flex flex-col md:flex-row justify-center items-center gap-8 relative"
+            className="flex flex-wrap justify-center gap-6"
             initial="hidden"
             whileInView="visible"
             viewport={{ once: true }}
             variants={containerVariants}
           >
-             {/* Step 1 */}
-             <motion.div variants={itemVariants} className="flex flex-col items-center text-center max-w-xs relative z-10">
-                <div className="w-24 h-24 rounded-full bg-orange-500 flex items-center justify-center mb-4 border-4 border-white shadow-lg">
-                   <Users size={40} color="white" />
-                </div>
-                <h3 className="text-xl font-bold text-white">1. Sourcing</h3>
-                <p className="text-gray-300 text-sm mt-2">Direct procurement from our 350+ farmer network ensures fair welfare and fresh produce.</p>
-             </motion.div>
-
-             {/* Arrow visual for desktop */}
-             <div className="hidden md:block w-24 h-1 bg-white/30 rounded"></div>
-
-             {/* Step 2 */}
-             <motion.div variants={itemVariants} className="flex flex-col items-center text-center max-w-xs relative z-10">
-                <div className="w-24 h-24 rounded-full bg-orange-500 flex items-center justify-center mb-4 border-4 border-white shadow-lg">
-                   <Leaf size={40} color="white" />
-                </div>
-                <h3 className="text-xl font-bold text-white">2. Quality Check</h3>
-                <p className="text-gray-300 text-sm mt-2">Rigorous FSSAI & ISO standard checks to ensure only premium grades are processed.</p>
-             </motion.div>
-
-             <div className="hidden md:block w-24 h-1 bg-white/30 rounded"></div>
-
-             {/* Step 3 */}
-             <motion.div variants={itemVariants} className="flex flex-col items-center text-center max-w-xs relative z-10">
-                <div className="w-24 h-24 rounded-full bg-orange-500 flex items-center justify-center mb-4 border-4 border-white shadow-lg">
-                   <PackageCheck size={40} color="white" />
-                </div>
-                <h3 className="text-xl font-bold text-white">3. Custom Packing</h3>
-                <p className="text-gray-300 text-sm mt-2">Private labeling and customized bulk packaging as per international market needs.</p>
-             </motion.div>
-
-             <div className="hidden md:block w-24 h-1 bg-white/30 rounded"></div>
-
-             {/* Step 4 */}
-             <motion.div variants={itemVariants} className="flex flex-col items-center text-center max-w-xs relative z-10">
-                <div className="w-24 h-24 rounded-full bg-orange-500 flex items-center justify-center mb-4 border-4 border-white shadow-lg">
-                   <Globe size={40} color="white" />
-                </div>
-                <h3 className="text-xl font-bold text-white">4. Global Export</h3>
-                <p className="text-gray-300 text-sm mt-2">Seamless logistics and documentation for timely delivery to your port.</p>
-             </motion.div>
-
+             {processSteps.map((step, index) => (
+               <motion.div 
+                  key={index}
+                  variants={itemVariants} 
+                  className="w-full sm:w-[calc(50%-12px)] lg:w-[calc(25%-18px)] bg-black/40 backdrop-blur-sm border border-white/20 p-6 rounded-xl text-center hover:bg-white/10 transition duration-300 flex flex-col items-center"
+               >
+                  <div className="w-16 h-16 rounded-full bg-orange-500 flex items-center justify-center mb-4 shadow-lg shrink-0">
+                     <step.icon size={32} color="white" />
+                  </div>
+                  <h3 className="text-lg font-bold text-white mb-2">{step.title}</h3>
+                  <p className="text-gray-300 text-sm">{step.desc}</p>
+               </motion.div>
+             ))}
           </motion.div>
         </div>
       </div>
 
       {/* ---------------- PRIVATE LABELING SECTION ---------------- */}
       <div className="relative z-10 pb-16 md:pb-24">
-        <div className="container mx-auto px-6 md:px-10">
-          <motion.div
-            className="bg-black/50 backdrop-blur-sm rounded-lg shadow-xl border border-white/40 p-6 md:p-10 md:pr-5 flex flex-col md:flex-row-reverse items-center"
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5 }}
-            viewport={{ once: true }}
-          >
-            <div className="md:w-1/2 mb-8 md:mb-0 md:pl-10">
-              <h2 className="text-3xl sm:text-4xl font-bold text-white mb-6">
-                Private Labeling & Customization
-              </h2>
-              <h3 className="text-xl text-orange-500 font-semibold mb-4">Grow Your Brand with Us</h3>
-              <p className="text-base md:text-lg text-gray-300 mb-6 text-justify">
-                Unique Designs offers exclusive private labeling and customization options for international buyers. 
-                From product selection to final packaging, we support you at every stage of your brand journey.
-                We provide customized packaging, labeling, and branding solutions tailored to your market requirements.
-              </p>
-              <ul className="list-disc list-inside text-gray-300 space-y-2 mb-6">
-                  <li>Bulk packs & Retail-ready units</li>
-                  <li>Country-specific compliance</li>
-                  <li>Branding insights & positioning support</li>
-              </ul>
-              {/* Updated Link to AboutUs */}
-              <Link
-                to="/ContactUs"
-                className="bg-white text-orange-600 font-bold py-3 px-8 rounded-full text-lg hover:bg-gray-200 transition duration-300"
-              >
-                Start Your Brand
-              </Link>
-            </div>
-
-            <div className="md:w-1/2 flex justify-center">
-              <img
-                src="/images/Homepage/SlideShow/Makhana.webp"
-                alt="Private Labeling Packaging"
-                className="rounded-2xl shadow-2xl w-full sm:w-3/4 p-2 object-cover border border-white/20"
-              />
-            </div>
-          </motion.div>
-        </div>
+  <div className="container mx-auto px-6 md:px-10">
+    <motion.div
+      className="bg-black/50 backdrop-blur-sm rounded-lg shadow-xl border border-white/40 p-6 md:p-10 md:pr-5 flex flex-col md:flex-row-reverse items-center"
+      initial={{ opacity: 0, y: 20 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      transition={{ duration: 0.5 }}
+      viewport={{ once: true }}
+    >
+      <div className="md:w-1/2 mb-8 md:mb-0 md:pl-10">
+        <h2 className="text-3xl sm:text-4xl font-bold text-white mb-6">
+          Private Labeling & Customization
+        </h2>
+        <h3 className="text-xl text-orange-500 font-semibold mb-4">Grow Your Brand with Us</h3>
+        <p className="text-base md:text-lg text-gray-300 mb-6 text-justify">
+          Unique Designs offers exclusive private labeling and customization options for international buyers.
+          From product selection to final packaging, we support you at every stage of your brand journey.
+          We provide customized packaging, labeling, and branding solutions tailored to your market requirements.
+        </p>
+        <ul className="list-disc list-inside text-gray-300 space-y-2 mb-6">
+          <li>Bulk packs & Retail-ready units</li>
+          <li>Country-specific compliance</li>
+          <li>Branding insights & positioning support</li>
+        </ul>
+        {/* Updated Link to AboutUs */}
+        <Link
+          to="/ContactUs"
+          className="bg-white text-orange-600 font-bold py-3 px-8 rounded-full text-lg hover:bg-gray-200 transition duration-300"
+        >
+          Start Your Brand
+        </Link>
       </div>
+
+      <div className="md:w-1/2 flex justify-center">
+        {/* NEW IMAGE FROM UNSPLASH (Eco-Friendly Pouches/Spices) */}
+        {/* INCREASED SIZE: Removed 'sm:w-3/4' and 'p-2' to make it fill the container */}
+        <img
+          src="/public/images/Homepage/label.jpg"
+          alt="Private Labeling Packaging (Spices & Organic Products)"
+          className="rounded-2xl shadow-2xl w-full object-cover border border-white/20"
+        />
+      </div>
+    </motion.div>
+  </div>
+</div>
 
       {/* ---------------- PRODUCTS CATEGORIES ---------------- */}
       <div id="products" className="relative z-10 py-16 md:py-24">
