@@ -3,6 +3,7 @@
 import React from "react";
 import { motion } from "framer-motion";
 import { Link } from "react-router-dom";
+import { Linkedin } from "lucide-react"; // Imported for the icons
 
 /**
  * Aboutus.jsx
@@ -164,18 +165,21 @@ const teamMembers = [
     role: "Founder & CEO",
     image: "/images/about/ceo.png",
     bio: "Guiding Unique Designs with a long-term vision for ethical exports and rural empowerment.",
+    linkedin: "https://www.linkedin.com/in/raakesh-raj-57ba811b2/",
   },
   {
     name: "Rishabh Kumar",
     role: "Co-founder, Head Canada",
     image: "/images/about/rishab.jpeg",
     bio: "Leads Canadian operations and international partnerships from Vancouver.",
+    linkedin: "https://www.linkedin.com/in/krishabh25/",
   },
   {
     name: "Prem Aayush",
     role: "Sales Manager",
     image: "/images/about/prem.jpeg",
     bio: "Drives sales strategy and client relationships across global markets.",
+    linkedin: "https://www.linkedin.com/in/prem-aayush-bb1b57336",
   },
 ];
 
@@ -419,7 +423,17 @@ export function Aboutus() {
                     <div className="text-xs text-orange-300 mt-1 px-3 py-1 rounded-full bg-black/60">
                       {m.role}
                     </div>
-                    <p className="text-xs text-gray-300 mt-3">{m.bio}</p>
+                    <p className="text-xs text-gray-300 mt-3 mb-4">{m.bio}</p>
+                    
+                    {/* LinkedIn Button */}
+                    <a 
+                      href={m.linkedin} 
+                      target="_blank" 
+                      rel="noopener noreferrer" 
+                      className="text-gray-400 hover:text-blue-500 transition-colors duration-300"
+                    >
+                      <Linkedin size={20} />
+                    </a>
                   </motion.div>
                 ))}
               </div>

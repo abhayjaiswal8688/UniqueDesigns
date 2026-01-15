@@ -12,8 +12,8 @@ export function Navbar() {
 
   // Array of navigation links for easier mapping
   const navLinks = [
-    { to: '/', text: 'Homepage' },
-    { to: '/AboutUs', text: 'Our Story' },
+    { to: '/', text: 'Home' },
+    { to: '/AboutUs', text: 'About Us' },
     { to: '/HerbalProducts', text: 'Organic Products' },
     { to: '/Manures', text: 'Manures' },
     { to: '/FoodProducts', text: 'Food Products' },
