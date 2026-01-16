@@ -440,7 +440,7 @@ export function Homepage() {
         {/* NEW IMAGE FROM UNSPLASH (Eco-Friendly Pouches/Spices) */}
         {/* INCREASED SIZE: Removed 'sm:w-3/4' and 'p-2' to make it fill the container */}
         <img
-          src="/public/images/Homepage/label.jpg"
+          src="/images/Homepage/label.jpg"
           alt="Private Labeling Packaging (Spices & Organic Products)"
           className="rounded-2xl shadow-2xl w-full object-cover border border-white/20"
         />
