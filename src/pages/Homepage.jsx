@@ -4,7 +4,7 @@ import { Link } from "react-router-dom"
 
 import { Swiper, SwiperSlide } from "swiper/react"
 import { Autoplay, EffectFade, Navigation, Pagination } from "swiper/modules"
-import { Award, Globe, Leaf, PackageCheck, Users, ClipboardCheck, Filter, FileText, Ship } from "lucide-react" 
+import { Award, Globe, Leaf, PackageCheck, Users, ClipboardCheck, Filter, FileText, Ship, CheckCircle2 } from "lucide-react" 
 
 import "swiper/css"
 import "swiper/css/effect-fade"
@@ -190,7 +190,7 @@ export function Homepage() {
           </motion.div>
 
           <motion.p className="text-lg md:text-xl text-gray-200 mb-10 text-justify mt-6 leading-relaxed" variants={itemVariants}>
-            Unique Designs is an India-based agri products exporting company built on trust, transparency, and long-term relationships. We work directly with a growing network of farmers across India to export trust from India to the world.
+           
           </motion.p>
 
           <motion.a
@@ -218,6 +218,70 @@ export function Homepage() {
               </SwiperSlide>
             ))}
           </Swiper>
+        </div>
+      </div>
+
+      {/* ---------------- WHO WE ARE / MISSION SECTION ---------------- */}
+      <div className="relative z-10 pb-16 md:pb-24">
+        <div className="container mx-auto px-6 md:px-10">
+          <motion.div
+            className="bg-black/50 backdrop-blur-sm rounded-lg shadow-xl border border-white/40 p-6 md:p-10"
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.5 }}
+            viewport={{ once: true }}
+          >
+            <div className="flex flex-col gap-6">
+              <div>
+                <h2 className="text-3xl sm:text-4xl font-bold text-white mb-2">
+                  Unique Designs
+                </h2>
+                <h3 className="text-xl text-orange-500 font-semibold mb-6">
+                  Agri Products Exporter from India to the World
+                </h3>
+              </div>
+
+              <div className="text-gray-300 text-base md:text-lg leading-relaxed text-justify space-y-4">
+                <p>
+                  Unique Designs is an India-based agri products exporting company built on <span className="text-white font-semibold">trust, transparency, and long-term relationships</span>. We work directly with a growing network of <span className="text-orange-400 font-semibold">350+ farmers</span> across India, and this network expands every day as more farmers join our mission.
+                </p>
+                <p>
+                  Unlike traditional exporters driven purely by margins, we do not believe in overpricing or exploiting global buyers. We observed that many exporters in India excessively charge foreign clients while underpaying farmers. <span className="text-white font-semibold">Unique Designs was created to change this system.</span>
+                </p>
+              </div>
+
+              <div className="bg-white/5 border-l-4 border-orange-500 p-6 rounded-r-lg my-2">
+                <h4 className="text-white font-bold text-lg mb-4">Our focus is simple:</h4>
+                <ul className="grid grid-cols-1 md:grid-cols-3 gap-4">
+                  <li className="flex items-center text-gray-200">
+                    <CheckCircle2 className="text-orange-500 mr-2" size={20} />
+                    Fair welfare for farmers
+                  </li>
+                  <li className="flex items-center text-gray-200">
+                    <CheckCircle2 className="text-orange-500 mr-2" size={20} />
+                    Genuine pricing for international buyers
+                  </li>
+                  <li className="flex items-center text-gray-200">
+                    <CheckCircle2 className="text-orange-500 mr-2" size={20} />
+                    Long-term relationships over short-term profits
+                  </li>
+                </ul>
+              </div>
+
+              <div className="text-gray-300 text-base md:text-lg leading-relaxed text-justify">
+                <p>
+                  By connecting farmers directly with global markets, we ensure ethical sourcing, consistent quality, and honest pricing. Every product we export reflects the hard work of Indian farmers and our commitment to building reliable, transparent supply chains across borders.
+                </p>
+              </div>
+
+              <div className="pt-6 border-t border-white/20 text-center">
+                <p className="text-xl md:text-2xl font-serif text-white italic">
+                  "At Unique Designs, we are not just exporting agricultural products — <br className="hidden md:block" />
+                  <span className="text-orange-500 font-bold not-italic">we are exporting trust from India to the world.</span>"
+                </p>
+              </div>
+            </div>
+          </motion.div>
         </div>
       </div>
 
@@ -376,7 +440,7 @@ export function Homepage() {
         {/* NEW IMAGE FROM UNSPLASH (Eco-Friendly Pouches/Spices) */}
         {/* INCREASED SIZE: Removed 'sm:w-3/4' and 'p-2' to make it fill the container */}
         <img
-          src="/images/Homepage/label.jpg"
+          src="/public/images/Homepage/label.jpg"
           alt="Private Labeling Packaging (Spices & Organic Products)"
           className="rounded-2xl shadow-2xl w-full object-cover border border-white/20"
         />
