@@ -294,19 +294,10 @@ export function Aboutus() {
                 </h3>
                 <div className="text-gray-200 text-sm leading-relaxed space-y-3 text-justify">
                   <p>
-                    Our vision is to make responsible agriculture the foundation of a more sustainable global food system.
-                  </p>
+                    Our vision is to To put India's capabilities on the global map — not just as a source of products, but as a benchmark for quality and reliability.
                   <p>
-                    We aim to build a future where farmers and agricultural businesses have access to dependable inputs that improve soil, support productivity and create lasting value.
+                   We aspire to make Indian agricultural resources, our manufacturing strengths and expertise accessible to the world, creating lasting value across industries and international markets.
                   </p>
-                  <p>
-                    Our mission is to connect quality Indian agricultural inputs with the world through integrity, innovation and long-term thinking — turning what begins in the soil into value that reaches far beyond the farm.
-                  </p>
-                  <p>
-                    As a registered Startup recognised by the Government of India and incubated by IIT (Indian School of Mines), Dhanbad, we are building towards that future with the credibility and rigour it demands.
-                  </p>
-                  <p>
-                    Our recognitions — including the Bhartiya Udyog Ratna Award and certifications from FSSAI, APEDA and ISO — reflect a standard we hold ourselves to: ethical sourcing, consistent quality and full transparency, from farm to final shipment.
                   </p>
                 </div>
               </div>
@@ -317,27 +308,12 @@ export function Aboutus() {
                     OUR MISSION
                   </h3>
                   <p className="text-gray-200 text-sm font-medium">
-                    Our mission is simple to state and deliberate to execute:
+                   To make global sourcing simpler, smarter and more dependable. 
                   </p>
-                  <ul className="text-gray-200 text-sm leading-relaxed list-disc ml-5 space-y-2.5">
-                    <li>
-                      Empower small farmers and skilled artisans with fair compensation and a direct route to global markets.
-                    </li>
-                    <li>
-                      Uphold the highest standards of organic and ethical production, end to end.
-                    </li>
-                    <li>
-                      Build cooperative partnerships where growth is shared, not extracted.
-                    </li>
-                    <li>
-                      Expand responsibly — new markets, same principles.
-                    </li>
-                  </ul>
+                  <p className="text-gray-200 text-sm font-medium">
+                   We bridge the gap between India's production capabilities and global demand by bringing together the right products, the right quality and the right commercial value. Every commitment we make is guided by transparency, consistency and the intent to build relationships that stand the test of time.
+                  </p>
                 </div>
-
-                <p className="text-orange-300 text-sm font-medium italic pt-4 border-t border-white/10">
-                  We&apos;re not just exporting products. We&apos;re exporting a fairer model of trade — one shipment, one partnership at a time.
-                </p>
               </div>
             </motion.section>
 

@@ -21,8 +21,8 @@ const phoneNumbers = {
   india: [
     {
       number: "+91 8920264583",
-      label: "Primary Contact – Office, Representative & General Enquiries",
-      primary: true,
+      label: "",
+      primary: false,
     },
     {
       number: "+91 94313 50139",

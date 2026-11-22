@@ -139,17 +139,15 @@ const slideImages = [
 // 5 Core Business Verticals
 const businessVerticals = [
   {
-    code: 'A',
-    title: 'Agricultural Commodities & Food Products',
-    link: '/FoodProducts',
-    image: '/images/Homepage/SlideShow/Spices.webp',
-    fallback: '/images/Homepage/AgriProducts.webp',
+     code: 'A',
+    title: 'Industrial Chemicals',
+    link: '/IndustrialChemicals',
+    image: 'https://commons.wikimedia.org/wiki/Special:FilePath/Kaliumdihydrogenphosphat.jpg?width=800',
+    fallback: '/images/Fertilizers/FerrousSulphate.jpg',
     items: [
-      'Fresh Fruits & Vegetables',
-      'Grains & Pulses',
-      'Spices',
-      'Processed Food Products',
-      'Herbal Powders & Ingredients',
+      'Barytes',
+      'Carbon Black',
+      'Other Industrial Chemical Requirements',
     ],
     spanClass: 'lg:col-span-2',
   },
@@ -199,14 +197,16 @@ const businessVerticals = [
   },
   {
     code: 'E',
-    title: 'Industrial Chemicals',
-    link: '/IndustrialChemicals',
-    image: 'https://commons.wikimedia.org/wiki/Special:FilePath/Kaliumdihydrogenphosphat.jpg?width=800',
-    fallback: '/images/Fertilizers/FerrousSulphate.jpg',
+    title: 'Agricultural Commodities & Food Products',
+    link: '/FoodProducts',
+    image: '/images/Homepage/SlideShow/Spices.webp',
+    fallback: '/images/Homepage/AgriProducts.webp',
     items: [
-      'Barytes',
-      'Carbon Black',
-      'Other Industrial Chemical Requirements',
+      'Fresh Fruits & Vegetables',
+      'Grains & Pulses',
+      'Spices',
+      'Processed Food Products',
+      'Herbal Powders & Ingredients',
     ],
     spanClass: 'lg:col-span-3',
   },
@@ -759,7 +759,7 @@ export function Homepage() {
 
             <div className="md:w-1/2 flex justify-center">
               <img
-                src="/images/Homepage/label.jpg"
+                src="/images/Homepage/AgriProducts.jpeg"
                 alt="Private Labeling and Custom Export Packaging"
                 className="rounded-2xl shadow-2xl w-full object-cover border border-white/20"
               />

@@ -105,8 +105,8 @@ const Footer = () => {
                   uniquedesigns.exim@gmail.com
                 </a>
                 <div className="flex flex-col space-y-1.5">
-                  <a href="tel:+918920264583" className="font-semibold text-white hover:text-orange-500 transition-colors">
-                    +91 8920264583 <span className="text-xs font-normal text-orange-400">(Primary)</span>
+                  <a href="tel:+918920264583" className="hover:text-orange-500 transition-colors">
+                    +91 8920264583
                   </a>
                   <a href="tel:+919431350139" className="hover:text-orange-500 transition-colors">
                     +91 94313 50139
