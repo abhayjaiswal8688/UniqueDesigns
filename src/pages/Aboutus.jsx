@@ -3,15 +3,7 @@
 import React from "react";
 import { motion } from "framer-motion";
 import { Link } from "react-router-dom";
-import { Linkedin } from "lucide-react"; // Imported for the icons
-
-/**
- * Aboutus.jsx
- * - Background video behind entire page
- * - Hero animated heading "Pure and Organic"
- * - Content blocks: About, Vision, Mission, Awards, Media, Team, CTA
- * - Team members kept as-is
- */
+import { Linkedin } from "lucide-react";
 
 // Background video
 const VideoBackground = ({ src = "/videos/about-bg.mp4" }) => (
@@ -24,7 +16,6 @@ const VideoBackground = ({ src = "/videos/about-bg.mp4" }) => (
       playsInline
       className="w-full h-full object-cover"
     />
-    {/* dark overlay so text is readable */}
     <div className="absolute inset-0 bg-black/50" />
   </div>
 );
@@ -42,15 +33,6 @@ const sectionVariant = {
     opacity: 1,
     y: 0,
     transition: { duration: 0.55, ease: "easeOut" },
-  },
-};
-
-const headingVariant = {
-  hidden: { opacity: 0, scale: 0.98 },
-  visible: {
-    opacity: 1,
-    scale: 1,
-    transition: { duration: 0.42, ease: "easeOut" },
   },
 };
 
@@ -161,25 +143,25 @@ const mediaImages = [
 
 const teamMembers = [
   {
-    name: "Raakesh Raj",
-    role: "Founder & CEO",
+    name: "PREM AAYUSH",
+    role: "Co-Founder & Export Manager",
+    image: "/images/about/prem.jpeg",
+    bio: "Leads international export operations, trade logistics, and client partnerships across global markets.",
+    linkedin: "https://www.linkedin.com/in/prem-aayush-bb1b57336",
+  },
+  {
+    name: "RAAKESH RAJ",
+    role: "Co-Founder & Chief Executive Officer (CEO)",
     image: "/images/about/ceo.png",
-    bio: "Guiding Unique Designs with a long-term vision for ethical exports and rural empowerment.",
+    bio: "Guiding Unique Designs Group of Industries with a long-term vision for ethical exports, manufacturing excellence, and rural empowerment.",
     linkedin: "https://www.linkedin.com/in/raakesh-raj-57ba811b2/",
   },
   {
-    name: "Rishabh Kumar",
-    role: "Co-founder, Head Canada",
+    name: "RISHABH KUMAR",
+    role: "Co-Founder & Head – Canada Operations",
     image: "/images/about/rishab.jpeg",
-    bio: "Leads Canadian operations and international partnerships from Vancouver.",
+    bio: "Leads Canadian operations, North American distribution, and international partnerships from Vancouver.",
     linkedin: "https://www.linkedin.com/in/krishabh25/",
-  },
-  {
-    name: "Prem Aayush",
-    role: "Sales Manager",
-    image: "/images/about/prem.jpeg",
-    bio: "Drives sales strategy and client relationships across global markets.",
-    linkedin: "https://www.linkedin.com/in/prem-aayush-bb1b57336",
   },
 ];
 
@@ -207,33 +189,50 @@ export function Aboutus() {
 
         <main className="pb-12">
           <SectionContainer className="space-y-12">
-            {/* Intro & short about */}
+            {/* Complete Company Profile & Who We Are */}
             <motion.section
               initial="hidden"
               whileInView="visible"
-              viewport={{ once: true, amount: 0.3 }}
+              viewport={{ once: true, amount: 0.2 }}
               variants={sectionVariant}
-              className="flex flex-col lg:flex-row gap-8 items-start bg-black/40 rounded-xl p-6 border border-white/10 backdrop-blur-sm"
+              className="flex flex-col lg:flex-row gap-8 items-start bg-black/40 rounded-xl p-6 md:p-8 border border-white/10 backdrop-blur-sm"
             >
-              {/* Left: intro text */}
-              <div className="lg:w-2/3 text-gray-200 leading-relaxed">
-                <h3 className="text-xl md:text-2xl text-orange-400 font-semibold mb-3 text-center lg:text-left">
-                  Who we are
-                </h3>
-                <p className="text-sm md:text-base">
-                  We started our mission with the inception of “INTERIOR
-                  COLLECTION” — a manufacturing firm serving interior and
-                  furniture industries since 2007. Growing through fierce
-                  competition, we expanded into exports and partnered with
-                  farmers and artisans to bring organic, sustainable, and
-                  high-quality products to global markets. Our focus includes
-                  vermicompost, finger millet, lotus seeds, jackfruits, rice,
-                  handicrafts, paintings, stainless-steel &amp; UPVC industrial
-                  products. Headquartered in Ranchi, India, and Vancouver,
-                  Canada, Unique Designs blends local roots with global reach.
-                </p>
+              {/* Left: Company Profile */}
+              <div className="lg:w-2/3 text-gray-200 leading-relaxed space-y-4">
+                <div className="text-center lg:text-left">
+                  <p className="text-xs md:text-sm font-bold tracking-widest text-orange-400 uppercase mb-1">
+                    UNIQUE DESIGNS GROUP OF INDUSTRIES
+                  </p>
+                  <h2 className="text-2xl md:text-3xl text-white font-bold mb-2">
+                    Who We Are
+                  </h2>
+                  <p className="text-sm md:text-base font-semibold text-orange-300 italic">
+                    Built on Vision. Driven by Enterprise. Connected to the World.
+                  </p>
+                </div>
 
-                <div className="mt-6 flex flex-wrap gap-4">
+                <div className="space-y-3 text-sm md:text-base text-justify pt-2">
+                  <p>
+                    Our journey began in 2007 with a simple ambition: to build something meaningful, enduring and bigger than business itself.
+                  </p>
+                  <p>
+                    What started as a manufacturing venture in the interior and furniture industry has grown into Unique Designs Group of Industries — a diversified enterprise evolving across industries, markets and international boundaries.
+                  </p>
+                  <p>
+                    Over the years, we have built our foundation around manufacturing expertise, strategic sourcing, industry partnerships and an understanding of global markets. Today, our business focuses on two key sectors: Agriculture and Fertilizers, and Food Products, connecting India&apos;s production capabilities with the evolving requirements of international markets.
+                  </p>
+                  <p>
+                    We believe in building businesses that create value at every level — from the manufacturers and agricultural communities we work with to the distributors, institutional buyers and global enterprises we serve.
+                  </p>
+                  <p>
+                    Operating from India, with an international business presence extending to Canada, our outlook has always been global. We approach every opportunity with a long-term perspective, placing quality, integrity and relationships at the centre of everything we do.
+                  </p>
+                  <p>
+                    For us, growth is not simply about entering new markets. It is about earning trust, creating meaningful partnerships and building an enterprise that stands the test of time.
+                  </p>
+                </div>
+
+                <div className="pt-3 flex flex-wrap gap-3">
                   <span className="inline-flex items-center gap-2 bg-white/5 px-3 py-2 rounded-md text-xs text-gray-200 border border-white/10">
                     Quality Certified
                   </span>
@@ -246,8 +245,8 @@ export function Aboutus() {
                 </div>
               </div>
 
-              {/* Right: info column */}
-              <aside className="lg:w-1/3 flex flex-col gap-4">
+              {/* Right: Headquarters & Quick Facts */}
+              <aside className="lg:w-1/3 w-full flex flex-col gap-4">
                 <div className="bg-black/40 rounded-md p-4 text-sm text-gray-200 border border-white/10">
                   <div className="font-semibold text-white mb-1">
                     Headquarters (India)
@@ -262,7 +261,7 @@ export function Aboutus() {
                     Headquarters (Canada)
                   </div>
                   <div className="text-xs">
-                     Pitt Meadows, Vancouver, BC, Canada
+                    Pitt Meadows, Vancouver, BC, Canada
                   </div>
                 </div>
 
@@ -270,42 +269,74 @@ export function Aboutus() {
                   <div className="font-semibold text-white mb-1">
                     Quick Facts
                   </div>
-                  <ul className="text-xs list-disc ml-5 space-y-1">
+                  <ul className="text-xs list-disc ml-5 space-y-1.5">
+                    <li>Established in 2007</li>
                     <li>20+ team members</li>
-                    <li>300+ farmer cooperative</li>
-                    <li>Annual revenue ~50 million</li>
+                    <li>350+ farmer network</li>
+                    <li>DPIIT Recognized Startup &amp; IIT (ISM) Dhanbad Incubated</li>
+                    <li>FSSAI, APEDA &amp; ISO 9001:2015 Certified</li>
                   </ul>
                 </div>
               </aside>
             </motion.section>
 
-            {/* Vision & Mission */}
+            {/* Revised Vision & Mission */}
             <motion.section
               initial="hidden"
               whileInView="visible"
-              viewport={{ once: true, amount: 0.3 }}
+              viewport={{ once: true, amount: 0.2 }}
               variants={sectionVariant}
               className="grid grid-cols-1 md:grid-cols-2 gap-8"
             >
-              <div className="text-center md:text-left bg-black/40 rounded-xl p-5 border border-white/10 backdrop-blur-sm">
-                <h4 className="text-xl font-semibold text-orange-400 mb-2">
-                  Vision
-                </h4>
-                <p className="text-gray-200 text-sm">
-                  To be the trusted bridge between rural producers and
-                  international consumers — creating prosperity for farmers and
-                  artisans while delivering authentic, traceable products.
-                </p>
+              <div className="text-left bg-black/40 rounded-xl p-6 border border-white/10 backdrop-blur-sm space-y-3">
+                <h3 className="text-xl font-bold text-orange-400 tracking-wide uppercase">
+                  OUR VISION
+                </h3>
+                <div className="text-gray-200 text-sm leading-relaxed space-y-3 text-justify">
+                  <p>
+                    Our vision is to make responsible agriculture the foundation of a more sustainable global food system.
+                  </p>
+                  <p>
+                    We aim to build a future where farmers and agricultural businesses have access to dependable inputs that improve soil, support productivity and create lasting value.
+                  </p>
+                  <p>
+                    Our mission is to connect quality Indian agricultural inputs with the world through integrity, innovation and long-term thinking — turning what begins in the soil into value that reaches far beyond the farm.
+                  </p>
+                  <p>
+                    As a registered Startup recognised by the Government of India and incubated by IIT (Indian School of Mines), Dhanbad, we are building towards that future with the credibility and rigour it demands.
+                  </p>
+                  <p>
+                    Our recognitions — including the Bhartiya Udyog Ratna Award and certifications from FSSAI, APEDA and ISO — reflect a standard we hold ourselves to: ethical sourcing, consistent quality and full transparency, from farm to final shipment.
+                  </p>
+                </div>
               </div>
 
-              <div className="text-center md:text-left bg-black/40 rounded-xl p-5 border border-white/10 backdrop-blur-sm">
-                <h4 className="text-xl font-semibold text-orange-400 mb-2">
-                  Mission
-                </h4>
-                <p className="text-gray-200 text-sm">
-                  Empower local communities through fair partnerships, ensure
-                  strict quality and traceability, and promote sustainable
-                  farming and production practices at scale.
+              <div className="text-left bg-black/40 rounded-xl p-6 border border-white/10 backdrop-blur-sm space-y-3 flex flex-col justify-between">
+                <div className="space-y-3">
+                  <h3 className="text-xl font-bold text-orange-400 tracking-wide uppercase">
+                    OUR MISSION
+                  </h3>
+                  <p className="text-gray-200 text-sm font-medium">
+                    Our mission is simple to state and deliberate to execute:
+                  </p>
+                  <ul className="text-gray-200 text-sm leading-relaxed list-disc ml-5 space-y-2.5">
+                    <li>
+                      Empower small farmers and skilled artisans with fair compensation and a direct route to global markets.
+                    </li>
+                    <li>
+                      Uphold the highest standards of organic and ethical production, end to end.
+                    </li>
+                    <li>
+                      Build cooperative partnerships where growth is shared, not extracted.
+                    </li>
+                    <li>
+                      Expand responsibly — new markets, same principles.
+                    </li>
+                  </ul>
+                </div>
+
+                <p className="text-orange-300 text-sm font-medium italic pt-4 border-t border-white/10">
+                  We&apos;re not just exporting products. We&apos;re exporting a fairer model of trade — one shipment, one partnership at a time.
                 </p>
               </div>
             </motion.section>
@@ -390,7 +421,7 @@ export function Aboutus() {
               </div>
             </motion.section>
 
-            {/* TEAM */}
+            {/* MANAGEMENT TEAM */}
             <motion.section
               initial="hidden"
               whileInView="visible"
@@ -399,7 +430,7 @@ export function Aboutus() {
               className="space-y-6"
             >
               <h3 className="text-center text-2xl text-orange-400 font-semibold">
-                Our Core Team
+                Management Team
               </h3>
 
               <div className="grid grid-cols-1 sm:grid-cols-3 gap-6">
@@ -419,17 +450,21 @@ export function Aboutus() {
                         className="w-full h-full object-cover"
                       />
                     </div>
-                    <div className="font-semibold text-white">{m.name}</div>
-                    <div className="text-xs text-orange-300 mt-1 px-3 py-1 rounded-full bg-black/60">
+                    <div className="font-bold text-white tracking-wide">
+                      {m.name}
+                    </div>
+                    <div className="text-xs text-orange-300 mt-1 px-3 py-1 rounded-full bg-black/60 font-medium">
                       {m.role}
                     </div>
-                    <p className="text-xs text-gray-300 mt-3 mb-4">{m.bio}</p>
+                    <p className="text-xs text-gray-300 mt-3 mb-4 flex-grow">
+                      {m.bio}
+                    </p>
                     
-                    {/* LinkedIn Button */}
                     <a 
                       href={m.linkedin} 
                       target="_blank" 
                       rel="noopener noreferrer" 
+                      aria-label={`${m.name} LinkedIn`}
                       className="text-gray-400 hover:text-blue-500 transition-colors duration-300"
                     >
                       <Linkedin size={20} />

@@ -18,8 +18,30 @@ const VideoBackground = () => (
 
 // CONTACT DATA
 const phoneNumbers = {
-  india: ["+91 94313 50139", "+91 91221 98880"],
-  canada: ["+1 604 417 4321", "+1 604 951 9511"],
+  india: [
+    {
+      number: "+91 8920264583",
+      label: "Primary Contact – Office, Representative & General Enquiries",
+      primary: true,
+    },
+    {
+      number: "+91 94313 50139",
+      label: "",
+      primary: false,
+    },
+    {
+      number: "+91 91221 98880",
+      label: "",
+      primary: false,
+    },
+  ],
+  canada: [
+    {
+      number: "+1 604 951 9511",
+      label: "Canada Operations",
+      primary: true,
+    },
+  ],
 };
 
 const contactCards = [
@@ -47,18 +69,40 @@ const CONTACT_EMAIL_2 = "uniquedesigns.exim@gmail.com";
 const faqs = [
   {
     question: "How soon will I get a response?",
-    answer: "We typically respond within 24 hours. For urgent inquiries, call us directly.",
+    answers: [
+      "We typically respond within 24 hours. For urgent inquiries, call us directly.",
+    ],
   },
   {
     question: "Do you handle export orders?",
-    answer: "Yes, we specialize in large-scale export and international partnerships.",
+    answers: [
+      "Yes, we specialize in large-scale export and international partnerships.",
+    ],
+  },
+  {
+    question: "Where have you exported to till now?",
+    answers: [
+      "We have established international business connections and trade relationships across several key markets, including Dubai, Oman, Nepal, Thailand, Vietnam, Sri Lanka, Malaysia, Saudi Arabia, Egypt and Canada, with business networks and emerging opportunities across African and European markets.",
+      "Our international network continues to expand as we build long-term partnerships with importers, distributors and institutional buyers worldwide.",
+    ],
+  },
+  {
+    question: "Within how many days do you usually execute export orders?",
+    answers: [
+      "Our standard order execution timeline is generally within 15 days of receipt of advance payment, subject to product availability, order specifications and mutually agreed commercial terms.",
+    ],
   },
 ];
 
-// LINKS HELPERS (JS VERSION)
+// LINKS HELPERS
 const getWhatsAppLink = (number) => {
   const digits = number.replace(/[^\d]/g, "");
   return `https://wa.me/${digits}`;
+};
+
+const getTelLink = (number) => {
+  const clean = number.replace(/[^\d+]/g, "");
+  return `tel:${clean}`;
 };
 
 const getGmailLink = (email) => {
@@ -172,10 +216,10 @@ export function Contactus() {
         initial={{ y: -40, opacity: 0 }}
         animate={{ y: 0, opacity: 1 }}
         transition={{ duration: 0.8 }}
-        className="relative z-10 text-center mb-12"
+        className="relative z-10 text-center mb-12 px-4"
       >
         <h1 className="text-4xl md:text-5xl pt-20 font-bold text-blue-400 mb-3">
-          Let’s Connect & Collaborate
+          Let’s Connect &amp; Collaborate
         </h1>
         <p className="text-gray-300 text-sm md:text-base max-w-2xl mx-auto">
           Have a question, idea, or business inquiry? Reach out — we respond fast.
@@ -203,45 +247,77 @@ export function Contactus() {
             </div>
 
             {/* INDIA */}
-            <div className="ml-1 space-y-1 text-sm">
+            <div className="ml-1 space-y-2 text-sm">
               <div className="inline-flex items-center gap-2 rounded-full bg-blue-500/10 px-3 py-1 text-xs font-medium text-blue-300">
                 <span className="h-2 w-2 rounded-full bg-green-400" />
-                India
+                India Office &amp; Representative
               </div>
-              <div className="flex flex-col gap-1 mt-1">
-                {phoneNumbers.india.map((num) => (
-                  <a
-                    key={num}
-                    href={getWhatsAppLink(num)}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="inline-flex items-center gap-2 text-gray-300 hover:text-blue-300 hover:underline"
+              <div className="flex flex-col gap-2.5 mt-1">
+                {phoneNumbers.india.map((item) => (
+                  <div
+                    key={item.number}
+                    className={
+                      item.primary
+                        ? "rounded-lg border border-blue-500/40 bg-blue-500/10 p-2.5"
+                        : ""
+                    }
                   >
-                    <MessageCircle className="w-4 h-4 text-green-400" />
-                    <span>{num}</span>
-                  </a>
+                    {item.label && (
+                      <div className="text-[11px] font-medium text-blue-300 mb-1">
+                        {item.label}
+                      </div>
+                    )}
+                    <div className="flex flex-wrap items-center gap-3">
+                      <a
+                        href={getTelLink(item.number)}
+                        className={`inline-flex items-center gap-1.5 hover:text-blue-300 hover:underline ${
+                          item.primary ? "font-semibold text-white" : "text-gray-300"
+                        }`}
+                      >
+                        <Phone className="w-3.5 h-3.5 text-blue-400" />
+                        <span>{item.number}</span>
+                      </a>
+                      <a
+                        href={getWhatsAppLink(item.number)}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="inline-flex items-center gap-1 text-xs text-green-400 hover:text-green-300 hover:underline"
+                      >
+                        <MessageCircle className="w-3.5 h-3.5" />
+                        <span>WhatsApp</span>
+                      </a>
+                    </div>
+                  </div>
                 ))}
               </div>
             </div>
 
             {/* CANADA */}
-            <div className="ml-1 space-y-1 text-sm mt-3">
+            <div className="ml-1 space-y-2 text-sm mt-3">
               <div className="inline-flex items-center gap-2 rounded-full bg-blue-500/10 px-3 py-1 text-xs font-medium text-blue-300">
                 <span className="h-2 w-2 rounded-full bg-amber-400" />
                 Canada
               </div>
-              <div className="flex flex-col gap-1 mt-1">
-                {phoneNumbers.canada.map((num) => (
-                  <a
-                    key={num}
-                    href={getWhatsAppLink(num)}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="inline-flex items-center gap-2 text-gray-300 hover:text-blue-300 hover:underline"
-                  >
-                    <MessageCircle className="w-4 h-4 text-green-400" />
-                    <span>{num}</span>
-                  </a>
+              <div className="flex flex-col gap-2 mt-1">
+                {phoneNumbers.canada.map((item) => (
+                  <div key={item.number} className="flex flex-wrap items-center gap-3">
+                    <a
+                      href={getTelLink(item.number)}
+                      className="inline-flex items-center gap-1.5 text-gray-300 hover:text-blue-300 hover:underline"
+                    >
+                      <Phone className="w-3.5 h-3.5 text-blue-400" />
+                      <span>{item.number}</span>
+                    </a>
+                    <a
+                      href={getWhatsAppLink(item.number)}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="inline-flex items-center gap-1 text-xs text-green-400 hover:text-green-300 hover:underline"
+                    >
+                      <MessageCircle className="w-3.5 h-3.5" />
+                      <span>WhatsApp</span>
+                    </a>
+                  </div>
                 ))}
               </div>
             </div>
@@ -255,24 +331,26 @@ export function Contactus() {
               </div>
               <h3 className="text-lg font-semibold text-white">Email</h3>
             </div>
-            <a
-              href={getGmailLink(CONTACT_EMAIL)}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="inline-flex items-center gap-2 text-sm text-gray-300 hover:text-blue-300 hover:underline"
-            >
-              <Mail className="w-4 h-4" />
-              <span>{CONTACT_EMAIL}</span>
-            </a>
-            <a
-              href={getGmailLink(CONTACT_EMAIL)}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="inline-flex items-center gap-2 text-sm text-gray-300 hover:text-blue-300 hover:underline"
-            >
-              <Mail className="w-4 h-4" />
-              <span>{CONTACT_EMAIL_2}</span>
-            </a>
+            <div className="flex flex-col space-y-2">
+              <a
+                href={getGmailLink(CONTACT_EMAIL)}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center gap-2 text-sm text-gray-300 hover:text-blue-300 hover:underline"
+              >
+                <Mail className="w-4 h-4" />
+                <span>{CONTACT_EMAIL}</span>
+              </a>
+              <a
+                href={getGmailLink(CONTACT_EMAIL_2)}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center gap-2 text-sm text-gray-300 hover:text-blue-300 hover:underline"
+              >
+                <Mail className="w-4 h-4" />
+                <span>{CONTACT_EMAIL_2}</span>
+              </a>
+            </div>
           </div>
 
           {/* OTHER CARDS */}
@@ -282,7 +360,7 @@ export function Contactus() {
                 key={item.title}
                 className="flex gap-3 items-start text-sm rounded-lg border border-blue-500/40 bg-black/40 px-4 py-3"
               >
-                <item.icon className="w-5 h-5 text-blue-400" />
+                <item.icon className="w-5 h-5 text-blue-400 shrink-0 mt-0.5" />
                 <div>
                   <div className="font-semibold text-white">{item.title}</div>
                   <div className="text-gray-400 text-xs leading-relaxed">
@@ -294,11 +372,11 @@ export function Contactus() {
           </div>
 
           <div className="mt-8 text-xs text-gray-500">
-            © 2025 Unique Designs. All rights reserved.
+            © {new Date().getFullYear()} Unique Designs Group of Industries. All rights reserved.
           </div>
         </motion.div>
 
-        {/* RIGHT SIDE FORM */}
+        {/* RIGHT SIDE FORM & FAQs */}
         <motion.div
           initial={{ x: 60, opacity: 0 }}
           animate={{ x: 0, opacity: 1 }}
@@ -316,11 +394,15 @@ export function Contactus() {
             <h3 className="text-lg font-semibold mb-4 text-blue-400">
               Frequently Asked Questions
             </h3>
-            <ul className="space-y-3 text-gray-300 text-sm">
+            <ul className="space-y-4 text-gray-300 text-sm">
               {faqs.map((faq) => (
-                <li key={faq.question}>
-                  <strong className="text-white block">{faq.question}</strong>
-                  <p className="pl-1">{faq.answer}</p>
+                <li key={faq.question} className="border-b border-white/10 pb-3 last:border-b-0 last:pb-0">
+                  <strong className="text-white block mb-1">{faq.question}</strong>
+                  <div className="space-y-2 pl-1 leading-relaxed">
+                    {faq.answers.map((paragraph, idx) => (
+                      <p key={idx}>{paragraph}</p>
+                    ))}
+                  </div>
                 </li>
               ))}
             </ul>

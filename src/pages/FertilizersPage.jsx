@@ -64,13 +64,8 @@ const AnimatedLetters = ({ text, className }) => {
 
 //------------------------------------------------------------------
 // Product card
-// - Picture fills the whole box (object-cover); white borders baked into
-//   a source picture are trimmed automatically (or set `zoom` by hand).
-// - No picture / failed load = placeholder in the same box.
 //------------------------------------------------------------------
 
-// Shown when a product has no picture yet (or its file is missing).
-// Fills the same box a photo would, so every card keeps the same layout.
 function FallbackArt({ label }) {
   return (
     <div
@@ -97,10 +92,6 @@ function FallbackArt({ label }) {
   )
 }
 
-// Some source pictures have white bands baked in (top/bottom or sides).
-// This reads the picture, finds those bands and zooms in to hide them.
-// If the browser blocks reading the pixels, nothing changes. In that case
-// set `zoom: 1.3` (or similar) on the product to do it by hand.
 function useWhiteTrim(src, manualZoom) {
   const [fit, setFit] = useState(null)
 
@@ -182,7 +173,6 @@ function ProductCard({ product }) {
   const [triedFallback, setTriedFallback] = useState(false)
   const fit = useWhiteTrim(src, zoom)
 
-  // 1st failure: try fallbackUrl (if any). 2nd failure: show the placeholder.
   const handleError = () => {
     if (fallbackUrl && !triedFallback) {
       setTriedFallback(true)
@@ -199,7 +189,6 @@ function ProductCard({ product }) {
       whileHover={{ scale: 1.02 }}
       transition={{ type: 'spring', stiffness: 300, damping: 20 }}
     >
-      {/* Picture fills the whole box. */}
       <div className="relative h-56 w-full flex-shrink-0 overflow-hidden md:h-auto md:min-h-[16rem] md:w-2/5">
         {src ? (
           <img
@@ -250,8 +239,6 @@ function ProductSection({ title, products }) {
 
 //------------------------------------------------------------------
 // Product data
-// A product whose image file is missing shows a placeholder in the picture box.
-// To add a picture later, add: imageUrl: '/images/Fertilizers/<file>.jpg'
 //------------------------------------------------------------------
 
 const tbn = (id) => `https://encrypted-tbn0.gstatic.com/images?q=tbn:${id}`
@@ -261,18 +248,18 @@ const mineralFertilizers = [
     name: 'Ammonium Sulphate (Crystalline)',
     dess: '21% N, 24% S',
     imageUrl: tbn('ANd9GcS7HwGgkvdMQokYDRxeBhAZWR8i2jgXIioSH4BMdMPu4g&s=10'),
-    zoom: 1.3, // hides the white bands baked into this photo
+    zoom: 1.3,
     imageAlt: 'Ammonium Sulphate (Crystalline)',
     description:
-      'High-quality white crystalline Ammonium Sulphate containing 21% Nitrogen (N) and 24% Sulphur (S), supplied in fertilizer grade with consistent specifications to support balanced crop nutrition and healthy plant growth. Suitable for a wide range of agricultural applications and international markets.',
+      'Premium white crystalline Ammonium Sulphate containing 21% Nitrogen (N) and 24% Sulphur (S), delivering essential nutrients for healthy crop growth and balanced plant nutrition. Suitable for a wide range of crops and agricultural applications.',
   },
   {
     name: 'SOP – Sulphate of Potash (Powder)',
-    dess: '50% K₂O, 17.5% S',
+    dess: '00-00-50 | 50% K₂O, 17.5% S',
     imageUrl: tbn('ANd9GcT85sxC_EK5rQZZerrhsI7XeJThxGwuvf1d3aryIvvXWA&s=10'),
     imageAlt: 'Sulphate of Potash (Powder)',
     description:
-      'High-quality water-soluble Sulphate of Potash (SOP) containing 50% Potassium Oxide (K₂O) and 17.5% Sulphur (S), providing essential potassium and sulphur for balanced crop nutrition. A chloride-free potassium fertilizer, ideal for fruits, vegetables and other chloride-sensitive crops.',
+      'Water-soluble, chloride-free Sulphate of Potash (SOP) containing 50% K₂O and 17.5% Sulphur, ideal for balanced nutrition of fruits, vegetables and chloride-sensitive crops.',
   },
   {
     name: 'MOP – Muriate of Potash',
@@ -280,7 +267,7 @@ const mineralFertilizers = [
     imageUrl: tbn('ANd9GcRQedAG40w57-CiYyBKc32S1rgh48YfDcuL2VXPADY7tg&s=10'),
     imageAlt: 'Muriate of Potash',
     description:
-      'High-quality Muriate of Potash (MOP) containing 60% Potassium Oxide (K₂O), providing an essential source of potassium to support plant growth, improve crop quality and enhance overall nutrient balance. Suitable for a wide range of agricultural crops and soil conditions.',
+      'Muriate of Potash (MOP) containing 60% K₂O, delivering essential potassium to support healthy plant growth, improve crop quality and enhance overall crop nutrition.',
   },
   {
     name: 'DAP – Di-Ammonium Phosphate',
@@ -288,15 +275,22 @@ const mineralFertilizers = [
     imageUrl: tbn('ANd9GcRPLB3faOpBd_ZVpGFIGaYtR2n_J5Jirbg6tLG_hvED-w&s=10'),
     imageAlt: 'Di-Ammonium Phosphate',
     description:
-      'High-quality Di-Ammonium Phosphate (DAP) containing 18% Nitrogen (N) and 46% Phosphate (P₂O₅), delivering essential nutrients for strong root development, early plant growth and improved crop establishment. Widely used as a basal fertilizer across a variety of agricultural crops.',
+      'Di-Ammonium Phosphate (DAP) containing 18% Nitrogen (N) and 46% P₂O₅, supporting strong root development, early plant growth and healthy crop establishment across a wide range of crops.',
   },
   {
-    name: 'MKP – Mono Potassium Phosphate',
-    dess: '00-52-34',
+    name: 'Urea',
+    dess: '46% N',
     imageUrl: tbn('ANd9GcQbu6SC7LgVD20jceupf80mIKqX_BUraCRoBztxdKXkCA&s=10'),
-    imageAlt: 'Mono Potassium Phosphate',
+    imageAlt: 'Urea',
     description:
-      'Fully water-soluble fertilizer containing 52% Phosphate (P₂O₅) and 34% Potassium (K₂O), supporting strong root development, flowering and fruit quality. Ideal for fertigation and foliar application.',
+      'Urea containing 46% Nitrogen (N), promoting vigorous plant growth, healthy foliage and improved crop development.',
+  },
+  {
+    name: 'Single Super Phosphate (SSP)',
+    imageUrl: tbn('ANd9GcQOV67QwHqbZ2oxT05Mq3qJFIOzfKyEfCQpsgdiXwF6HA&s=10'),
+    imageAlt: 'Single Super Phosphate (SSP)',
+    description:
+      'Single Super Phosphate (SSP), a phosphorus-rich fertilizer containing essential sulphur and calcium to support strong root development, healthy crop growth and improved nutrient uptake.',
   },
 ]
 
@@ -307,7 +301,7 @@ const otherFertilizers = [
     imageUrl: tbn('ANd9GcSLAUeIHV2RIlBHrMYySxg98gCSap4xG9vISdQ6rovCgQ&s=10'),
     imageAlt: 'Magnesium Sulphate',
     description:
-      'Magnesium Sulphate containing 9.6% Magnesium (Mg) and 13% Sulphur (S), supporting chlorophyll formation, photosynthesis and balanced crop nutrition. Suitable for fruits, vegetables and other agricultural crops.',
+      'Magnesium Sulphate containing 9.6% Mg and 13% Sulphur (S), supporting chlorophyll formation, photosynthesis and healthy crop growth.',
   },
   {
     name: 'Zinc Sulphate Monohydrate',
@@ -315,16 +309,16 @@ const otherFertilizers = [
     imageUrl: tbn('ANd9GcTpzWnzlUYiBisj37Yz2idpXLiSyhTDI6w22pIUw4RIOQ&s=10'),
     imageAlt: 'Zinc Sulphate Monohydrate',
     description:
-      'High-quality Zinc Sulphate Monohydrate containing 33% Zinc (Zn), providing an essential micronutrient for enzyme activity, plant growth and improved crop development. Suitable for a wide range of agricultural applications.',
+      'Zinc Sulphate Monohydrate containing 33% Zinc (Zn), supporting enzyme activity, healthy plant growth and improved crop development.',
   },
   {
     name: 'Ferrous Sulphate (Iron Sulphate)',
     dess: '19–20% Fe',
-    // The link in the PDF was cut short, so it can never load. Add a photo here:
-    imageUrl: '/images/Fertilizers/FerrousSulphate.jpg',
+    imageUrl: 'https://commons.wikimedia.org/wiki/Special:FilePath/Ferrous_sulfate.jpg?width=800',
+    fallbackUrl: '/images/Fertilizers/FerrousSulphate.jpg',
     imageAlt: 'Ferrous Sulphate (Iron Sulphate)',
     description:
-      'Ferrous Sulphate containing 19–20% Iron (Fe), providing an essential micronutrient that supports chlorophyll formation, prevents iron deficiency and promotes healthy plant growth. Suitable for various agricultural applications.',
+      'Ferrous Sulphate containing 19–20% Iron (Fe), supporting chlorophyll formation, preventing iron deficiency and promoting healthy plant growth.',
   },
   {
     name: 'Calcium Sulphate (Gypsum)',
@@ -332,7 +326,7 @@ const otherFertilizers = [
     imageUrl: tbn('ANd9GcT3oIjpRfbSKtJl2sv0wQDAxQ7Dgoy9FRXOfjCVGiyfQw&s=10'),
     imageAlt: 'Calcium Sulphate (Gypsum)',
     description:
-      'Calcium Sulphate containing approximately 23% Calcium (Ca) and 18% Sulphur (S), supporting soil conditioning, root development and balanced crop nutrition. Suitable for a wide range of agricultural applications.',
+      'Calcium Sulphate containing approximately 23% Calcium (Ca) and 18% Sulphur (S), improving soil condition and supporting root development and balanced crop nutrition.',
   },
   {
     name: 'EDTA Chelated Micronutrients',
@@ -350,7 +344,7 @@ const npkBlends = [
     imageUrl: tbn('ANd9GcQ9XJHVntVLpp1Z3nFuJicclCA_-nOMMBsyHkXjP51H1A&s=10'),
     imageAlt: 'NPK 19-19-19',
     description:
-      'Fully water-soluble fertilizer containing 19% Nitrogen, 19% Phosphate (P₂O₅) and 19% Potassium (K₂O), providing balanced nutrition for healthy plant growth, strong roots and improved crop development. Suitable for foliar spray and fertigation.',
+      'Fully water-soluble fertilizer containing 19% Nitrogen, 19% Phosphate (P₂O₅) and 19% Potassium (K₂O) providing balanced nutrition for healthy plant growth, strong roots and improved crop development. Suitable for foliar spray and fertigation.',
   },
   {
     name: 'NPK 15-15-15',
@@ -358,15 +352,16 @@ const npkBlends = [
     imageUrl: tbn('ANd9GcQMMqe6aVz1m17Vz75yZuPq5r0PH_lCPriGZXpmuaLYkw&s=10'),
     imageAlt: 'NPK 15-15-15',
     description:
-      'Balanced compound fertilizer containing 15% Nitrogen (N), 15% Phosphate (P₂O₅) and 15% Potassium (K₂O), supporting healthy plant growth, strong root development and improved crop performance. Suitable for a wide range of agricultural crops.',
+      'Balanced compound fertilizer containing 15% Nitrogen (N), 15% Phosphate (P₂O₅) and 15% Potassium (K₂O) supporting healthy plant growth, strong root development and improved crop performance. Suitable for a wide range of agricultural crops.',
   },
   {
-    name: 'NPK 10-26-26',
-    dess: 'Balanced compound',
-    imageUrl: tbn('ANd9GcRHLvLaLyp-O332ZJQHvp5f4iA3fkxDVn6P0WVagev9AQ&s'),
-    imageAlt: 'NPK 10-26-26',
+    name: 'MKP (NPK 00:52:34)',
+    dess: 'Water-soluble (00-52-34)',
+    imageUrl: 'https://commons.wikimedia.org/wiki/Special:FilePath/Kaliumdihydrogenphosphat.jpg?width=800',
+    fallbackUrl: tbn('ANd9GcQbu6SC7LgVD20jceupf80mIKqX_BUraCRoBztxdKXkCA&s=10'),
+    imageAlt: 'MKP (NPK 00:52:34)',
     description:
-      'Balanced compound fertilizer containing 10% Nitrogen (N), 26% Phosphate (P₂O₅) and 26% Potassium (K₂O), supporting root development, flowering, fruit formation and overall crop performance. Suitable for a wide range of agricultural crops.',
+      'Mono Potassium Phosphate (MKP) containing 52% P₂O₅ and 34% K₂O providing highly water-soluble phosphorus and potassium for strong root development, flowering and fruit quality.',
   },
   {
     name: 'Custom NPK Blends',
@@ -383,42 +378,42 @@ const biostimulants = [
     imageUrl: tbn('ANd9GcRRQTGUHfdy_ROvJ7ehaVmdLToOPcujGQVwZofDemNYpA&s=10'),
     imageAlt: 'Humic Acid',
     description:
-      'High-quality Humic Acid that improves soil structure, enhances nutrient availability and supports root development. Helps improve soil fertility and promotes healthy, vigorous plant growth. Suitable for a wide range of crops.',
+      'Humic Acid enhances soil structure, improves nutrient availability and stimulates root development for healthier crops and improved soil fertility.',
   },
   {
     name: 'Fulvic Acid',
     imageUrl: tbn('ANd9GcQb3u0ct3OZJSkJPnfRN_c2GUKRkIkvDyYy7bdtEQSN0w&s=10'),
     imageAlt: 'Fulvic Acid',
     description:
-      'High-quality Fulvic Acid that enhances nutrient uptake, improves nutrient mobility and supports efficient plant absorption. Promotes healthy root development and overall crop growth, suitable for foliar application and fertigation.',
+      'Fulvic Acid enhances nutrient absorption and mobility, supporting root development and healthy crop growth. Suitable for foliar application and fertigation.',
   },
   {
     name: 'Seaweed Extract',
     imageUrl: tbn('ANd9GcR0VzWggaB4ZEvAmRU9oeSgHOQcHrX27hZjoJ-23zxi8w&s'),
     imageAlt: 'Seaweed Extract',
     description:
-      'Natural plant-based biostimulant rich in bioactive compounds that supports root development, improves nutrient uptake and enhances plant growth. Helps improve crop vigour and tolerance to environmental stress. Suitable for foliar application and fertigation.',
+      'Plant-based biostimulant rich in bioactive compounds, supporting root development, nutrient uptake and crop vigour while improving tolerance to environmental stress. Suitable for foliar application and fertigation.',
   },
   {
     name: 'Potassium Humate (Flakes)',
     imageUrl: tbn('ANd9GcSlJM9Bc39BU7auGnfmUb0pCUpweRSOsQrvpP2aeoZRxA&s=10'),
     imageAlt: 'Potassium Humate (Flakes)',
     description:
-      'High-quality Potassium Humate flakes containing humic acid and soluble potassium (K₂O), designed to improve soil structure, enhance nutrient availability and promote strong root development. Suitable for soil application and fertigation.',
+      'Potassium Humate Flakes containing humic acid and soluble K₂O, improving soil structure, nutrient availability and root development. Suitable for soil application and fertigation.',
   },
   {
     name: 'Humic Fulvic Amino Complex',
     imageUrl: '/images/Fertilizers/HumicFulvicAmino.jpg',
-    fallbackUrl: tbn('ANd9GcRRQTGUHfdy_ROvJ7ehaVmdLToOPcujGQVwZofDemNYpA&s=10'), // same as Humic Acid until its own photo is added
+    fallbackUrl: tbn('ANd9GcRRQTGUHfdy_ROvJ7ehaVmdLToOPcujGQVwZofDemNYpA&s=10'),
     description:
-      'Advanced biostimulant combining Humic Acid, Fulvic Acid and Amino Acids to enhance nutrient absorption, stimulate root development and improve soil fertility. Supports healthy plant growth and overall crop performance.',
+      'A powerful blend of Humic Acid, Fulvic Acid and Amino Acids that enhances nutrient absorption, stimulates root development and promotes healthy crop growth.',
   },
   {
     name: 'Seaweed Extract + Amino Acids',
     imageUrl: '/images/Fertilizers/SeaweedAmino.jpg',
-    fallbackUrl: tbn('ANd9GcR0VzWggaB4ZEvAmRU9oeSgHOQcHrX27hZjoJ-23zxi8w&s'), // same as Seaweed Extract until its own photo is added
+    fallbackUrl: tbn('ANd9GcR0VzWggaB4ZEvAmRU9oeSgHOQcHrX27hZjoJ-23zxi8w&s'),
     description:
-      'Advanced plant biostimulant combining Seaweed Extract and Amino Acids to promote root development, enhance nutrient uptake and support healthy plant growth. Helps improve crop vigour and tolerance to environmental stress.',
+      'A potent blend of Seaweed Extract and Amino Acids that promotes root development, enhances nutrient uptake and improves crop vigour and stress tolerance.',
   },
 ]
 
@@ -437,34 +432,6 @@ const organicManure = [
     imageAlt: 'Neem Cake',
     description:
       'Natural organic soil amendment derived from neem seeds, rich in organic matter and plant nutrients. Helps improve soil fertility, supports root health and contributes to balanced crop nutrition.',
-  },
-]
-
-// Photos go in /public/images/Fertilizers/ (placeholder shows until they exist).
-const pesticidesHerbicides = [
-  {
-    name: 'Glyphosate',
-    imageUrl: '/images/Fertilizers/Glyphosate.jpg',
-    description:
-      'Broad-spectrum, non-selective herbicide for post-emergence weed control.',
-  },
-  {
-    name: 'Atrazine',
-    imageUrl: '/images/Fertilizers/Atrazine.jpg',
-    description:
-      'Selective herbicide for control of broadleaf and grassy weeds in crops such as maize and sugarcane.',
-  },
-  {
-    name: 'Pretilachlor & Butachlor',
-    imageUrl: '/images/Fertilizers/PretilachlorButachlor.jpg',
-    description:
-      'Pre-emergence herbicides widely used for weed control in transplanted rice.',
-  },
-  {
-    name: 'Lambda-cyhalothrin & Cypermethrin',
-    imageUrl: '/images/Fertilizers/Pyrethroids.jpg',
-    description:
-      'Synthetic pyrethroid insecticides for control of a wide range of crop pests.',
   },
 ]
 
@@ -499,8 +466,8 @@ export function FertilizersPage() {
           animate="visible"
         >
           <motion.div variants={taglineHeaderVariants} className="mb-6">
-            <h1 className="animate-stream-text-green mb-6 font-serif text-4xl font-bold leading-tight tracking-tight sm:text-5xl md:text-6xl">
-              <AnimatedLetters text="Fertilizers & Agrochemicals" />
+            <h1 className="animate-stream-text-green mb-6 font-serif text-4xl font-bold leading-tight tracking-tight sm:text-5xl md:text-6xl uppercase">
+              <AnimatedLetters text="FERTILIZERS" />
             </h1>
           </motion.div>
 
@@ -522,7 +489,6 @@ export function FertilizersPage() {
         <ProductSection title="NPK Blends" products={npkBlends} />
         <ProductSection title="Biostimulants" products={biostimulants} />
         <ProductSection title="Organic Manure" products={organicManure} />
-        <ProductSection title="Pesticides & Herbicides" products={pesticidesHerbicides} />
 
         <p className="mt-10 text-center text-gray-300 md:text-lg">
           Need something else?{' '}

@@ -71,8 +71,6 @@ const AnimatedLetters = ({ text, className }) => {
 // Cards
 //------------------------------------------------------------------
 
-// Shown when a product has no picture yet (or its file is missing).
-// Fills the same box a photo would, so every card keeps the same layout.
 function FallbackArt({ label }) {
   return (
     <div
@@ -99,10 +97,6 @@ function FallbackArt({ label }) {
   )
 }
 
-// Some source pictures have white bands baked in (top/bottom or sides).
-// This reads the picture, finds those bands and zooms in to hide them.
-// If the browser blocks reading the pixels, nothing changes. In that case
-// set `zoom: 1.3` (or similar) on the product to do it by hand.
 function useWhiteTrim(src, manualZoom) {
   const [fit, setFit] = useState(null)
 
@@ -184,7 +178,6 @@ function ProductCard({ product }) {
   const [triedFallback, setTriedFallback] = useState(false)
   const fit = useWhiteTrim(src, zoom)
 
-  // 1st failure: try fallbackUrl (if any). 2nd failure: show the placeholder.
   const handleError = () => {
     if (fallbackUrl && !triedFallback) {
       setTriedFallback(true)
@@ -201,7 +194,6 @@ function ProductCard({ product }) {
       whileHover={{ scale: 1.02 }}
       transition={{ type: 'spring', stiffness: 300, damping: 20 }}
     >
-      {/* Picture fills the whole box. */}
       <div className="relative h-56 w-full flex-shrink-0 overflow-hidden md:h-auto md:min-h-[16rem] md:w-2/5">
         {src ? (
           <img
@@ -228,8 +220,6 @@ function ProductCard({ product }) {
   )
 }
 
-// Image-top card used by Fresh from Farm.
-// Picture fills a fixed-height box; a placeholder shows if it fails to load.
 const FarmProductCard = ({ img, alt, title, desc }) => {
   const [src, setSrc] = useState(img || null)
 
@@ -262,7 +252,6 @@ const FarmProductCard = ({ img, alt, title, desc }) => {
   )
 }
 
-// Full-width banner used by Fresh from Farm
 const CategoryBanner = ({ imageUrl, title }) => (
   <motion.div
     className="relative z-10 my-12 h-64 w-full bg-cover bg-center md:my-16 md:h-80"
@@ -287,13 +276,18 @@ const CategoryBanner = ({ imageUrl, title }) => (
   </motion.div>
 )
 
-function ProductSection({ title, products }) {
+function ProductSection({ title, products, subtitle }) {
   return (
     <>
       <h2 className="mb-6 mt-9 text-center text-2xl font-bold tracking-tight text-white sm:text-3xl">
         {title}
       </h2>
       <hr className="mx-auto mb-10 w-1/6 border-t-2 border-green-500/80" />
+      {subtitle && (
+        <p className="mx-auto mb-10 max-w-3xl text-center text-base text-gray-300 md:text-lg">
+          {subtitle}
+        </p>
+      )}
       <motion.div
         className="flex flex-wrap justify-center gap-8"
         variants={containerVariants}
@@ -311,11 +305,6 @@ function ProductSection({ title, products }) {
 
 //------------------------------------------------------------------
 // Product data
-// Images expected in /public/images/FoodProductPage/:
-//   puffed-rice.jpg, beetroot-chips.jpg, apple-chips.jpg, cucumber-chips.jpg, tamarind.jpg
-// Spice images in /public/images/FreshFromFarm/Spices/:
-//   Turmeric.jpg, Ginger.jpg, Garlic.jpg, Cumin.jpg
-// Until a file exists, that card shows a placeholder in the picture box.
 //------------------------------------------------------------------
 
 const superfoods = [
@@ -341,6 +330,24 @@ const superfoods = [
     imageAlt: 'Puffed Rice',
     description:
       'Light, crisp puffed rice, a popular ready-to-eat snack and the base for many traditional preparations. Hygienically processed and packed.',
+  },
+  {
+    name: 'MICROGREENS',
+    dess: 'Nutrient-Dense Greens',
+    imageUrl:
+      'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSsNbISLcUM8BlOGW5molz7FqZaSwTggOOVMeZgFyxjZg&s=10',
+    imageAlt: 'Microgreens',
+    description:
+      'Fresh, nutrient-dense microgreens harvested at peak vitality, rich in concentrated vitamins, minerals, and antioxidants. Cultivated under clean, controlled conditions for gourmet culinary, retail, and health-focused international markets.',
+  },
+  {
+    name: 'CORDYCEPS MILITARIS',
+    dess: 'Premium Medicinal Mushroom',
+    imageUrl:
+      'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTvQeR1JJFRIA_rcQoBDW0xDU_s63W7iW0YW3qr_Im0gw&s=10',
+    imageAlt: 'Cordyceps Militaris',
+    description:
+      'High-grade, carefully cultivated Cordyceps Militaris prized for its bioactive compounds, natural stamina support, and wellness properties. Gently dried and quality-tested to meet international nutraceutical and functional food standards.',
   },
 ]
 
@@ -384,6 +391,14 @@ const spices = [
 
 const chips = [
   {
+    name: 'CUSTOM / MIXED VEGETABLE CHIPS',
+    dess: 'Customised Combinations',
+    imageUrl: '/images/FoodProductPage/mixed-vegetable-chips.jpg',
+    imageAlt: 'Custom / Mixed Vegetable Chips Assortment',
+    description:
+      'A vibrant, crunchy combination of dehydrated vegetable chips—such as beetroot, carrot, sweet potato, okra, and cucumber—processed to retain natural colour, nutrients, and crispness. We offer customised combinations of dehydrated vegetable chips, tailored ratios, and bulk or private-label packaging to meet specific buyer requirements.',
+  },
+  {
     name: 'Beetroot Chips',
     imageUrl: '/images/FoodProductPage/beetroot-chips.jpg',
     imageAlt: 'Beetroot Chips',
@@ -403,6 +418,57 @@ const chips = [
     imageAlt: 'Cucumber Chips',
     description:
       'Refreshing, crunchy dehydrated cucumber slices, a light and healthy snack.',
+  },
+]
+
+const organicHerbalCollection = [
+  {
+    name: 'Moringa (Drumstick Leaf)',
+    dess: 'Leaves & Fine Powder',
+    imageUrl: '/images/FoodProductPage/moringa.jpg',
+    imageAlt: 'Organic Moringa Leaves and Powder',
+    description:
+      'Nutrient-rich organic Moringa leaves harvested from partner farms and shade-dried to preserve natural chlorophyll, vitamins, and minerals. Available as whole dried leaves and fine export-grade powder.',
+  },
+  {
+    name: 'Ashwagandha',
+    dess: 'Roots & Powder',
+    imageUrl: '/images/FoodProductPage/ashwagandha.jpg',
+    imageAlt: 'Organic Ashwagandha Roots and Powder',
+    description:
+      'Organically cultivated Indian Ashwagandha roots and finely milled powder, carefully cleaned, dried, and graded for international wellness, herbal tea, and nutraceutical buyers.',
+  },
+  {
+    name: 'Tulsi (Holy Basil)',
+    dess: 'Dried Leaves & Powder',
+    imageUrl: '/images/FoodProductPage/tulsi.jpg',
+    imageAlt: 'Organic Tulsi Holy Basil',
+    description:
+      'Aromatic, chemical-free Tulsi leaves gently dehydrated to retain their natural essential oils and herbal potency. Ideal for herbal infusions, wellness blends, and bulk botanical supply.',
+  },
+  {
+    name: 'Lemongrass',
+    dess: 'Cut & Sifted Leaves',
+    imageUrl: '/images/FoodProductPage/lemongrass.jpg',
+    imageAlt: 'Organic Dried Lemongrass',
+    description:
+      'Fragrant, organically grown lemongrass leaves carefully cut, dried, and sorted for crisp citrus aroma. Supplied in bulk and custom packaging for herbal tea blenders and food processors.',
+  },
+  {
+    name: 'Giloy (Guduchi)',
+    dess: 'Dried Stem & Powder',
+    imageUrl: '/images/FoodProductPage/giloy.jpg',
+    imageAlt: 'Organic Giloy Stem and Powder',
+    description:
+      'Sustainably harvested organic Giloy stems, hygienically washed, sliced, and dried under controlled conditions to ensure consistent purity and quality for export markets.',
+  },
+  {
+    name: 'Shatavari',
+    dess: 'Roots & Powder',
+    imageUrl: '/images/FoodProductPage/shatavari.jpg',
+    imageAlt: 'Organic Shatavari Roots and Powder',
+    description:
+      'Naturally grown Shatavari roots sourced directly from our farmer network, carefully processed and packed to international quality and traceability standards.',
   },
 ]
 
@@ -547,7 +613,16 @@ export function NaturalProductPage() {
 
         <ProductSection title="Superfoods" products={superfoods} />
         <ProductSection title="Spices" products={spices} />
-        <ProductSection title="Dehydrated Chips" products={chips} />
+        <ProductSection
+          title="Dehydrated Chips"
+          subtitle="Available as single-origin varieties or custom-blended vegetable chip assortments tailored to your packaging and market specifications."
+          products={chips}
+        />
+        <ProductSection
+          title="ORGANIC HERBAL COLLECTION"
+          subtitle="Ethically sourced, naturally cultivated Indian herbs and botanicals, carefully shade-dried and graded for global wellness and food industries."
+          products={organicHerbalCollection}
+        />
 
         <p className="mt-10 text-center text-gray-300 md:text-lg">
           …and many more varieties.{' '}

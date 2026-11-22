@@ -1,26 +1,18 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 
-/* NOTE: 
-  You can change the image paths for the menu icons in the <button>
-  element below. I've used '/images/menu-icon.png' and 
-  '/images/close-icon.png' as placeholders.
-*/
-
 export function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
 
-  // Array of navigation links for easier mapping
   const navLinks = [
-    { to: '/', text: 'Home' },
-    { to: '/AboutUs', text: 'About Us' },
-    { to: '/Fertilizers', text: 'Fertilizers & Agrochemicals' },
-    { to: '/FoodProducts', text: 'Food Products' },
-    { to: '/IndustrialChemicals', text: 'Industrial Chemicals' },
-    { to: '/ContactUs', text: 'Contact' },
+    { to: '/', text: 'HOME' },
+    { to: '/AboutUs', text: 'ABOUT US' },
+    { to: '/Fertilizers', text: 'FERTILIZERS' },
+    { to: '/IndustrialChemicals', text: 'INDUSTRIAL CHEMICALS' },
+    { to: '/FoodProducts', text: 'FOOD PRODUCTS' },
+    { to: '/ContactUs', text: 'CONTACT US' },
   ];
 
-  // Function to close the mobile menu when a link is clicked
   const handleLinkClick = () => {
     setIsOpen(false);
   };
@@ -33,7 +25,7 @@ export function Navbar() {
           <Link
             key={link.to}
             to={link.to}
-            className="text-m text-white font-medium hover:text-orange-500 transition-colors tracking-wider"
+            className="text-sm lg:text-base text-white font-medium hover:text-orange-500 transition-colors tracking-wider uppercase"
           >
             {link.text}
           </Link>
@@ -43,31 +35,27 @@ export function Navbar() {
       {/* --- Mobile Menu Button --- */}
       <button
         onClick={() => setIsOpen(!isOpen)}
-        className="md:hidden text-white z-50" // z-50 to ensure it's above other header content
+        className="md:hidden text-white z-50"
         aria-label="Toggle menu"
       >
         {isOpen ? (
-          // --- THIS IS THE "CLOSE" ICON ---
           <img
-            src="/images/close-icon.png" // <-- REPLACE THIS PATH
+            src="/images/close-icon.png"
             alt="Close menu"
-            className="h-6 w-6" // Adjust size as needed
-            // Fallback placeholder in case the image path is wrong
-            onError={(e) => { 
-              e.target.onerror = null; 
-              e.target.src="https://placehold.co/32x32/ffffff/000000?text=X"; 
+            className="h-6 w-6"
+            onError={(e) => {
+              e.target.onerror = null;
+              e.target.src = 'https://placehold.co/32x32/ffffff/000000?text=X';
             }}
           />
         ) : (
-          // --- THIS IS THE "HAMBURGER" ICON ---
           <img
-            src="/images/menu-icon.png" // <-- REPLACE THIS PATH
+            src="/images/menu-icon.png"
             alt="Open menu"
-            className="h-6 w-6" // Adjust size as needed
-            // Fallback placeholder in case the image path is wrong
-            onError={(e) => { 
-              e.target.onerror = null; 
-              e.target.src="https://placehold.co/32x32/ffffff/000000?text=M"; 
+            className="h-6 w-6"
+            onError={(e) => {
+              e.target.onerror = null;
+              e.target.src = 'https://placehold.co/32x32/ffffff/000000?text=M';
             }}
           />
         )}
@@ -84,8 +72,8 @@ export function Navbar() {
             <Link
               key={link.to}
               to={link.to}
-              className="text-2xl text-white font-medium hover:text-orange-500 transition-colors"
-              onClick={handleLinkClick} // Close menu on click
+              className="text-2xl text-white font-medium hover:text-orange-500 transition-colors tracking-wider uppercase"
+              onClick={handleLinkClick}
             >
               {link.text}
             </Link>

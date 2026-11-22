@@ -22,14 +22,14 @@ const Footer = () => {
                 <img
                   className="h-10 w-auto group-hover:opacity-90 transition-opacity"
                   src="/images/logo.png"
-                  alt="Unique Designs Logo"
+                  alt="Unique Designs Group of Industries Logo"
                 />
                 <span className="text-xl font-bold text-white group-hover:text-orange-500 transition-colors">
                   Unique Designs
                 </span>
               </Link>
               <p className="text-gray-400 text-sm text-justify leading-relaxed">
-                Connecting sustainable farms to the global market. Discover our premium collection of fertilizers, food products, and industrial chemicals.
+                Unique Designs Group of Industries — connecting Indian manufacturing and sustainable agriculture to global markets with quality fertilizers, industrial chemicals, and food products.
               </p>
             </div>
             
@@ -51,35 +51,35 @@ const Footer = () => {
               <span className="w-2 h-2 bg-orange-500 rounded-full mr-2"></span>
               Quick Links
             </h3>
-            <ul className="space-y-3 text-gray-400">
+            <ul className="space-y-3 text-gray-400 text-sm">
               <li>
-                <Link to="/" className="hover:text-orange-500 hover:pl-1 transition-all duration-200 block">
-                  Home
+                <Link to="/" className="hover:text-orange-500 hover:pl-1 transition-all duration-200 block uppercase">
+                  HOME
                 </Link>
               </li>
               <li>
-                <Link to="/AboutUs" className="hover:text-orange-500 hover:pl-1 transition-all duration-200 block">
-                  Our Story
+                <Link to="/AboutUs" className="hover:text-orange-500 hover:pl-1 transition-all duration-200 block uppercase">
+                  ABOUT US
                 </Link>
               </li>
               <li>
-                <Link to="/Fertilizers" className="hover:text-orange-500 hover:pl-1 transition-all duration-200 block">
-                  Fertilizers &amp; Agrochemicals
+                <Link to="/Fertilizers" className="hover:text-orange-500 hover:pl-1 transition-all duration-200 block uppercase">
+                  FERTILIZERS
                 </Link>
               </li>
               <li>
-                <Link to="/FoodProducts" className="hover:text-orange-500 hover:pl-1 transition-all duration-200 block">
-                  Food Products
+                <Link to="/IndustrialChemicals" className="hover:text-orange-500 hover:pl-1 transition-all duration-200 block uppercase">
+                  INDUSTRIAL CHEMICALS
                 </Link>
               </li>
               <li>
-                <Link to="/IndustrialChemicals" className="hover:text-orange-500 hover:pl-1 transition-all duration-200 block">
-                  Industrial Chemicals
+                <Link to="/FoodProducts" className="hover:text-orange-500 hover:pl-1 transition-all duration-200 block uppercase">
+                  FOOD PRODUCTS
                 </Link>
               </li>
               <li>
-                <Link to="/ContactUs" className="hover:text-orange-500 hover:pl-1 transition-all duration-200 block">
-                  Contact
+                <Link to="/ContactUs" className="hover:text-orange-500 hover:pl-1 transition-all duration-200 block uppercase">
+                  CONTACT US
                 </Link>
               </li>
             </ul>
@@ -92,7 +92,7 @@ const Footer = () => {
             </h3>
             <address className="text-gray-400 not-italic space-y-4 text-sm">
               <div className="leading-relaxed">
-                <strong className="text-gray-300 block mb-1">Unique Designs</strong>
+                <strong className="text-gray-300 block mb-1">Unique Designs Group of Industries</strong>
                 Tupudana Industrial Area,<br />
                 Tupudana, Ranchi,<br />
                 Jharkhand, India
@@ -104,8 +104,11 @@ const Footer = () => {
                 >
                   uniquedesigns.exim@gmail.com
                 </a>
-                <div className="flex flex-col space-y-1">
-                  <a href="tel:+919431350179" className="hover:text-orange-500 transition-colors">
+                <div className="flex flex-col space-y-1.5">
+                  <a href="tel:+918920264583" className="font-semibold text-white hover:text-orange-500 transition-colors">
+                    +91 8920264583 <span className="text-xs font-normal text-orange-400">(Primary)</span>
+                  </a>
+                  <a href="tel:+919431350139" className="hover:text-orange-500 transition-colors">
                     +91 94313 50139
                   </a>
                   <a href="tel:+919122198880" className="hover:text-orange-500 transition-colors">
@@ -123,8 +126,8 @@ const Footer = () => {
             </h3>
             <address className="text-gray-400 not-italic space-y-4 text-sm">
               <div className="leading-relaxed">
-                <strong className="text-gray-300 block mb-1">Unique Designs</strong>
-                 Pitt Meadows,<br />
+                <strong className="text-gray-300 block mb-1">Unique Designs Group of Industries</strong>
+                Pitt Meadows,<br />
                 Vancouver, BC,<br />
                 Canada
               </div>
@@ -136,9 +139,6 @@ const Footer = () => {
                   udexports.exim@gmail.com
                 </a>
                 <div className="flex flex-col space-y-1">
-                  <a href="tel:+16044174321" className="hover:text-orange-500 transition-colors">
-                    +1 604 417 4321
-                  </a>
                   <a href="tel:+16049519511" className="hover:text-orange-500 transition-colors">
                     +1 604 951 9511
                   </a>
@@ -150,7 +150,7 @@ const Footer = () => {
 
         <div className="border-t border-gray-700 mt-12 pt-8 text-center text-gray-500 text-sm space-y-3">
           <p>
-            &copy; {new Date().getFullYear()} Unique Designs. All rights
+            &copy; {new Date().getFullYear()} Unique Designs Group of Industries. All rights
             reserved.
           </p>
           <p className="flex flex-wrap items-center justify-center gap-x-2 gap-y-1">

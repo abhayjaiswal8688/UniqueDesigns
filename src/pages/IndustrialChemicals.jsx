@@ -1,9 +1,9 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
 import { motion } from 'framer-motion'
 
 //------------------------------------------------------------------
-// Animation Variants & AnimatedLetters (same as the other product pages)
+// Animation Variants & AnimatedLetters
 //------------------------------------------------------------------
 
 const headerContainerVariants = {
@@ -77,6 +77,159 @@ const AnimatedLetters = ({ text, className }) => {
 }
 
 //------------------------------------------------------------------
+// Product Card Helpers (for Insecticides & Pesticides)
+//------------------------------------------------------------------
+
+function FallbackArt({ label }) {
+  return (
+    <div
+      role="img"
+      aria-label={label}
+      className="absolute inset-0 flex flex-col items-center justify-center gap-3 bg-gradient-to-br from-green-800 via-green-900 to-black"
+    >
+      <svg
+        viewBox="0 0 64 64"
+        className="h-16 w-16 text-green-400/40"
+        fill="none"
+        stroke="currentColor"
+        strokeWidth="2.5"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+        aria-hidden="true"
+      >
+        <path d="M32 56V30" />
+        <path d="M32 34C32 22 24 14 10 14c0 12 8 20 22 20z" />
+        <path d="M32 28c0-10 7-17 20-17 0 11-7 17-20 17z" />
+      </svg>
+      <span className="text-sm text-green-200/50">Photo coming soon</span>
+    </div>
+  )
+}
+
+function useWhiteTrim(src, manualZoom) {
+  const [fit, setFit] = useState(null)
+
+  useEffect(() => {
+    setFit(null)
+    if (!src) return
+    if (manualZoom) {
+      setFit({ scale: manualZoom, origin: '50% 50%' })
+      return
+    }
+
+    let cancelled = false
+    const probe = new Image()
+    probe.crossOrigin = 'anonymous'
+    probe.onload = () => {
+      try {
+        const W = 100
+        const H = Math.max(10, Math.round((probe.naturalHeight / probe.naturalWidth) * W))
+        const canvas = document.createElement('canvas')
+        canvas.width = W
+        canvas.height = H
+        const ctx = canvas.getContext('2d')
+        ctx.drawImage(probe, 0, 0, W, H)
+        const d = ctx.getImageData(0, 0, W, H).data
+
+        const white = (x, y) => {
+          const i = (y * W + x) * 4
+          return d[i + 3] < 20 || (d[i] > 235 && d[i + 1] > 235 && d[i + 2] > 235)
+        }
+        const rowWhite = (y) => {
+          let n = 0
+          for (let x = 0; x < W; x++) if (white(x, y)) n++
+          return n / W >= 0.985
+        }
+        const colWhite = (x) => {
+          let n = 0
+          for (let y = 0; y < H; y++) if (white(x, y)) n++
+          return n / H >= 0.985
+        }
+
+        let t = 0
+        while (t < H && rowWhite(t)) t++
+        let b = 0
+        while (b < H - t && rowWhite(H - 1 - b)) b++
+        let l = 0
+        while (l < W && colWhite(l)) l++
+        let r = 0
+        while (r < W - l && colWhite(W - 1 - r)) r++
+
+        const ty = t / H, by = b / H, lx = l / W, rx = r / W
+        const cy = 1 - ty - by
+        const cx = 1 - lx - rx
+        if (cy < 0.3 || cx < 0.3) return
+
+        const scale = Math.min(1.8, Math.max(1 / cy, 1 / cx))
+        if (scale < 1.06 || cancelled) return
+
+        const oy = ty + by > 0 ? ty / (ty + by) : 0.5
+        const ox = lx + rx > 0 ? lx / (lx + rx) : 0.5
+        setFit({ scale, origin: `${ox * 100}% ${oy * 100}%` })
+      } catch {
+        /* pixels not readable (CORS): leave the picture as is */
+      }
+    }
+    probe.src = src
+
+    return () => {
+      cancelled = true
+    }
+  }, [src, manualZoom])
+
+  return fit
+}
+
+function ProductCard({ product }) {
+  const { name, description, dess, imageUrl, imageAlt, fallbackUrl, zoom } = product
+
+  const [src, setSrc] = useState(imageUrl || null)
+  const [triedFallback, setTriedFallback] = useState(false)
+  const fit = useWhiteTrim(src, zoom)
+
+  const handleError = () => {
+    if (fallbackUrl && !triedFallback) {
+      setTriedFallback(true)
+      setSrc(fallbackUrl)
+    } else {
+      setSrc(null)
+    }
+  }
+
+  return (
+    <motion.article
+      className="flex w-full max-w-xl flex-col overflow-hidden rounded-xl border border-green-600/60 shadow-lg transition-shadow duration-300 hover:shadow-green-900/50 md:flex-row"
+      variants={cardVariants}
+      whileHover={{ scale: 1.02 }}
+      transition={{ type: 'spring', stiffness: 300, damping: 20 }}
+    >
+      <div className="relative h-56 w-full flex-shrink-0 overflow-hidden md:h-auto md:min-h-[16rem] md:w-2/5">
+        {src ? (
+          <img
+            src={src}
+            alt={imageAlt || name}
+            className="absolute inset-0 h-full w-full object-cover"
+            style={fit ? { transform: `scale(${fit.scale})`, transformOrigin: fit.origin } : undefined}
+            referrerPolicy="no-referrer"
+            loading="lazy"
+            onError={handleError}
+          />
+        ) : (
+          <FallbackArt label={imageAlt || name} />
+        )}
+      </div>
+
+      <div className="flex w-full flex-col p-6 md:p-8">
+        <h3 className="text-2xl font-bold text-white">{name}</h3>
+        {dess && <p className="mb-2 text-xl font-semibold text-white">{dess}</p>}
+        <hr className="my-4 border-t border-green-700/50" />
+        <p className="flex-grow leading-relaxed text-gray-300">{description}</p>
+      </div>
+    </motion.article>
+  )
+}
+
+//------------------------------------------------------------------
 // Data
 //------------------------------------------------------------------
 
@@ -93,6 +246,33 @@ const chemicals = [
   'Barytes',
   'Calcium Carbonate',
   'Silicon Dioxide',
+]
+
+const insecticidesPesticides = [
+  {
+    name: 'Glyphosate',
+    imageUrl: '/images/Fertilizers/Glyphosate.jpg',
+    description:
+      'Broad-spectrum, non-selective herbicide for post-emergence weed control.',
+  },
+  {
+    name: 'Atrazine',
+    imageUrl: '/images/Fertilizers/Atrazine.jpg',
+    description:
+      'Selective herbicide for control of broadleaf and grassy weeds in crops such as maize and sugarcane.',
+  },
+  {
+    name: 'Pretilachlor & Butachlor',
+    imageUrl: '/images/Fertilizers/PretilachlorButachlor.jpg',
+    description:
+      'Pre-emergence herbicides widely used for weed control in transplanted rice.',
+  },
+  {
+    name: 'Lambda-cyhalothrin & Cypermethrin',
+    imageUrl: '/images/Fertilizers/Pyrethroids.jpg',
+    description:
+      'Synthetic pyrethroid insecticides for control of a wide range of crop pests.',
+  },
 ]
 
 //------------------------------------------------------------------
@@ -127,8 +307,8 @@ export function IndustrialChemicals() {
           animate="visible"
         >
           <motion.div variants={taglineHeaderVariants} className="mb-6">
-            <h1 className="text-4xl sm:text-5xl md:text-6xl font-bold mb-6 leading-tight font-serif tracking-tight animate-stream-text-green">
-              <AnimatedLetters text="Industrial Chemicals" />
+            <h1 className="text-4xl sm:text-5xl md:text-6xl font-bold mb-6 leading-tight font-serif tracking-tight animate-stream-text-green uppercase">
+              <AnimatedLetters text="INDUSTRIAL CHEMICALS" />
             </h1>
           </motion.div>
 
@@ -150,7 +330,7 @@ export function IndustrialChemicals() {
           ))}
         </motion.div>
 
-        {/* --- Product list --- */}
+        {/* --- Industrial Chemicals Product List --- */}
         <h2 className="mb-6 mt-9 text-center text-2xl font-bold tracking-tight text-white sm:text-3xl">
           Our Product Range
         </h2>
@@ -173,6 +353,24 @@ export function IndustrialChemicals() {
             >
               <h3 className="text-2xl font-bold text-white">{name}</h3>
             </motion.article>
+          ))}
+        </motion.div>
+
+        {/* --- Insecticides & Pesticides (Moved from Fertilizers / Agrochemicals) --- */}
+        <h2 className="mb-6 mt-16 text-center text-2xl font-bold tracking-tight text-white sm:text-3xl">
+          Insecticides &amp; Pesticides
+        </h2>
+        <hr className="w-1/6 mx-auto mb-10 border-t-2 border-green-500/80" />
+
+        <motion.div
+          className="flex flex-wrap justify-center gap-8"
+          variants={containerVariants}
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true, amount: 0.1 }}
+        >
+          {insecticidesPesticides.map((product) => (
+            <ProductCard key={product.name} product={product} />
           ))}
         </motion.div>
 
